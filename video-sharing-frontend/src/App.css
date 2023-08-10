@@ -1,8 +1,161 @@
-.App {
+.header {
   text-align: center;
   color: #fff;
+  display: flex;
+  justify-content: space-between;
+  height: 5rem;
+  
 }
-
+.search{
+  width: 40rem;
+  height: 3rem;
+  border: 1px solid white;
+  margin-top: 1rem;
+  border-radius: 90px;
+  background-color: transparent;
+  padding-left: 2rem;
+  font-size: large;
+  color: #FFFFFF;
+}
+.login-signup{
+  width: 10rem;
+  margin: 1.5rem 0 1rem 0;
+  color: #FFFFFF;
+}
+.title{
+  width: 10rem;
+  margin: 1.5rem -2rem 1rem 0;
+  color: #C4B4F8;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.land{
+  width: 100%;
+  height: 24rem;
+}
+.banner{
+  width: 100%;
+  height: 24rem;
+  color: #fff;
+  position: relative;
+  margin-bottom: 1rem;
+}
+.banner-img{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: .50;
+}
+.banner-details{
+  top: 12rem;
+  left: 3rem;
+  position: absolute;
+  width: 22rem;
+  
+}
+.banner-title{
+  display: flex;
+  flex-wrap: wrap;
+  width: 30rem;
+  font-size: 2em;
+  font-weight: 700;
+}
+.video-details{
+  display: flex;
+  justify-content: space-between;
+  width: 18rem;
+}
+.pub-img{
+  width: 2rem;
+  border-radius: 90px;
+  margin-top: 1rem;
+  display: inline;
+}
+.pub-name{
+  margin-left: 3rem;
+  margin-top: -1.8rem;
+}
+.card-div{
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 2rem;
+  margin-top: 4rem;
+}
+.action{
+  color: rgba(255, 255, 255, 1);
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+}
+.view-more{
+  margin-right: 1rem;
+}
+.recent{
+  margin-left: 1rem;
+}
+.card{
+  width: 17rem;
+  height: 11rem;
+  color: #FFFFFF;
+  margin: 0 0 2rem 1rem;
+  position: relative;
+}
+.play-div{
+  position: absolute;
+  left: 15rem;
+  top: 1rem;
+  border-radius: 90px;
+  width: 1.5rem;
+  height: 1.5rem;
+  text-align: center;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  opacity: 0.35;
+}
+.play-button{
+  position: absolute;
+  left: 15.4rem;
+  top: .9rem;
+  color: #FFFFFF ;
+  font-size: large;
+  /* background: rgba(255, 255, 255, 1) 0% 0% no-repeat padding-box; */
+}
+.card-img{
+  width: 100%;
+  height: 100%;
+  opacity: .60;
+}
+.card-title{
+  position: absolute;
+  top: 8rem;
+  left: 1rem;
+  font-weight: 600;
+}
+.card-date{
+  position: absolute;
+  top: 9.2rem;
+  left: 1rem;
+  font-size: .6rem;
+}
+.card-duration{
+  position: absolute;
+  top: 9.2rem;
+  left: 5.2rem;
+  font-size: .6rem;
+}
+.card-views{
+  position: absolute;
+  top: 9.2rem;
+  left: 8.2rem;
+  font-size: .6rem;
+}
+.card-pub-img{
+  position: absolute;
+  top: 8.3rem;
+  left: 14rem;
+  width: 2rem;
+  border-radius: 90px;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
