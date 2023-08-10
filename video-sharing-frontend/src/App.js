@@ -1,19 +1,17 @@
+import { createContext, useState } from 'react';
 import './App.css';
-import LandingPage from './components/LandingPage';
+
+import Router from './components/Routes/Router';
+
+export const authContext = createContext();
 
 function App() {
+  const [login, setLogin] = useState(false)
   return (
     <>
-    <div className="header">
-      <div className='title'>FlickFlow</div>
-      <div>
-        <input type='text' className='search' placeholder='search'/>
-      </div>
-      <div className='login-signup'>Login | Signup</div>
-    </div>
-    <div className='land'>
-      <LandingPage/>
-    </div>
+    <authContext.Provider value={{login, setLogin}}>
+      <Router/>
+    </authContext.Provider>
     </>
     
   );

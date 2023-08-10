@@ -1,31 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Cards from './Cards'
+import Banner from './Banner'
+import StickyBanner from './StickyBanner';
+
+import Header from './Header'
 // import '../App.css'
-const LandingPage = () => {
+function LandingPage() {
+  const [viewMore, setViewMore] = useState(false);
+
   return <>
-  <div className='banner'>
-    <img src='https://wallpapercave.com/wp/wp10159564.jpg' className='banner-img'/>
-    <div className='banner-details'>
-      <div className='banner-title'>Fast & Furious</div>
-      <div className='video-details'>
-        <div>10 Mar 2019</div>
-        <div>12 Mins</div>
-        <div>200 views</div>
-      </div>
-      <img src='https://d3ml3b6vywsj0z.cloudfront.net/company_images/605db35410fce904a7a8dcd5_images.png' className='pub-img'/> 
-      <h5 className='pub-name'>Publisher Name</h5>
-    </div>    
-  </div>
-  <div className='action'>
-    <div className='recent'>Recent</div>
-    <div className='view-more'>View More</div>
-  </div>
-  <div className='card-div'>
-    {new Array(4).fill(0).map((item, idx) => {
-      return <Cards/>
-    })}
-  </div>
-  </>
+    <Header />
+    {!viewMore ? <Banner /> : <StickyBanner />}
+
+    <div className='action'>
+      <div className='recent'>Recent</div>
+      <div className='view-more' onClick={() => setViewMore(viewMore ? false : true)}>{!viewMore ? "View All" : "View Less"}</div>
+    </div>
+    <div className='card-div'>
+      {!viewMore ? new Array(4).fill(0).map((item, idx) => {
+        return <Cards />;
+      }) : new Array(10).fill(0).map((item, idx) => {
+        return <Cards />;
+      })}
+    </div>
+
+  </>;
 }
 
 export default LandingPage
