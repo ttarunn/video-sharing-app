@@ -17,14 +17,21 @@
   font-size: large;
   color: #FFFFFF;
 }
+.search-page-container{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1rem;
+}
 .login-signup{
-  width: 18rem;
-  margin: 1.5rem 0 1rem 0;
+  
+  margin: 1.5rem 1.5rem 1rem 0;
   color: #FFFFFF;
 }
 .title{
-  width: 10rem;
-  margin: 1.5rem -2rem 1rem 0;
+  /* width: 8rem; */
+  margin: 1.5rem -2rem 1rem .9rem;
   color: #C4B4F8;
   font-size: 1.5rem;
   font-weight: 600;
@@ -170,6 +177,7 @@
   width: 100%;
   height: 100%;
   opacity: .60;
+  border-radius: 10px;
 }
 .card-title{
   position: absolute;
@@ -201,6 +209,13 @@
   left: 14rem;
   width: 2rem;
   border-radius: 90px;
+}
+.player-pub-img{
+  margin-right: .5rem;
+  margin-top: 1.4rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 100px;
 }
 .App-logo {
   height: 40vmin;
@@ -281,6 +296,8 @@
   font-size: 1rem;
   margin-top: .5rem;
   margin-left: -.3rem;
+  border: none;
+  outline: none;
 }
 #visibility{
   display: block;
@@ -290,6 +307,8 @@
   font-size: 1rem;
   margin-top: .5rem;
   margin-left: -.3rem;
+  border: none;
+  outline: none;
 }
 #other{
   display: block;
@@ -299,6 +318,8 @@
   font-size: 1rem;
   margin-top: .5rem;
   margin-left: -.3rem;
+  border: none;
+  outline: none;
 }
 .label{
   font-size: .8rem;
@@ -327,6 +348,133 @@ select option {
 }
 .btn-purple{
   background-color: #C4B4F8;
+}
+.card:hover{
+  border: 1px solid white;
+  border-radius: 10px;
+}
+#upload-container{
+  width: 100%;
+  height: 35rem;
+  background: transparent;
+  position: fixed;
+  top: 0rem;
+}
+.upload{
+  width: 50%;
+  height: 32rem;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin: auto;
+  margin-top: 1%;
+  background-color: #000000;
+  padding: .2rem 2rem 1rem 2rem;
+  color: #fff;
+}
+.cancel{
+  margin-left: 100%;
+  display: inline;
+}
+h4{
+  display: inline;
+  
+}
+.upload > .btn-purple {
+  margin: 1.5rem 35% 1rem 35%
+}
+.browse-file{
+  width: 100%;
+  height: 10rem;
+  border: 1px solid #FFFFFF;
+  border-radius: 10px;
+  background: #4B4B5F 0% 0% no-repeat padding-box;
+  margin-top: 1rem;
+  text-align: center;
+}
+.browse-file > p {
+  margin: 0;
+}
+.upload-icon{
+  font-size: 5rem;
+}
+textarea{
+  background-color: #000000;
+  display: block;
+  margin-top: .5rem;
+  width: 90%;
+  height: 5rem;
+  border: none;
+  color: #fff;
+  resize: none;
+  font-size: 1rem;
+  box-shadow: 0px 1px 0px #555;
+}
+textarea:focus{
+  border: none;
+  outline: none;
+}
+::placeholder {
+  color: #fff;
+}
+.upload-select{
+  width: 90%;
+  margin-top: .5rem;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0px 1px 0px #555;
+  padding-bottom: .6rem;
+}
+.upload-name{
+  margin-top: 1.5rem;
+  background-color: transparent;
+  border: none;
+  height: 2rem;
+  font-size: 1.5rem;
+  color: #FFFFFF;
+  width: 90%;
+}
+input[type=text], input[type="password"], input[type="email"], input[type="tel"]:focus {
+  border: none;
+  outline: none;
+}
+.progress-bar{
+  position: relative;
+  width: 90%;
+  height: 1rem;
+  background-color: #f1dddd;
+  border-radius: 15px;
+  overflow: hidden;
+}
+.progress-bar-fill{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: greenyellow;
+}
+.video-player{
+  width: 100%;
+  color: #FFFFFF;
+  display: flex;
+}
+.player{
+  width: 75%;
+  align-self: flex-start;
+  position: sticky;
+  top: 0rem;
+  display: inline;
+  padding: 1rem;
+}
+.suggestion{
+  width: 25%;
+  display: inline flex;
+  flex-wrap: wrap;
+  padding: 1rem 0 0 0rem;
+}
+.video-img{
+  width: 100%;
+  height: 24rem;
+  margin: auto;
+  border-radius: 10px;
 }
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -414,8 +562,8 @@ select option {
   height: 3rem;
   color: #FFFFFF
 }
-input:focus {
-  border: 3px solid #555;
+input{
+  box-shadow: 0px 1px 0px #555;
 }
 .sign-btn{
   width: 8rem;
@@ -448,26 +596,6 @@ input:focus {
   height: 2rem;
   color: #FFFFFF
 }
-/* .signup-phone{
-  background-color: transparent;
-  border: none;
-  width: 15rem;
-  display: block;
-  margin-top: 1.5rem;
-  margin-left: auto;
-  margin-right: auto;
-  height: 2rem;
-}
-.signup-profession{
-  background-color: transparent;
-  border: none;
-  width: 15rem;
-  display: block;
-  margin-top: 1.5rem;
-  margin-left: auto;
-  margin-right: auto;
-  height: 2rem;
-} */
 .signin-link{
   position: absolute;
   color: #C4B4F8;

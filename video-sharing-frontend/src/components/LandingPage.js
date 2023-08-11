@@ -1,15 +1,29 @@
-import React, { useState } from 'react'
+import React, { createContext, useState } from 'react'
 import Cards from './Cards'
 import Banner from './Banner'
 import StickyBanner from './StickyBanner';
 
 import Header from './Header'
+import SearchResult from './SearchPage';
+
+
+export const searchContext = createContext({
+  search: [],
+  setSearch:()=> {}
+});
+
 // import '../App.css'
 function LandingPage() {
   const [viewMore, setViewMore] = useState(false);
-
+  const [search, setSearch] = useState([])
+  
+  if(search.length){
+    return <SearchResult search={search}/>
+  }
   return <>
-    <Header />
+    <searchContext.Provider value={{search, setSearch}}>
+      <Header />
+    </searchContext.Provider>
     {!viewMore ? <Banner /> : <StickyBanner />}
 
     <div className='action'>

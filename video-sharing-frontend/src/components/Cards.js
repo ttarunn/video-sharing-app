@@ -3,7 +3,6 @@ import React from 'react'
 const Cards = () => {
   return (
     <div className='card'>
-        
         <img src='https://wallpapercave.com/wp/wp10159564.jpg' className='card-img' alt='card-img'/>
         <div className='play-div'></div>
         <div className='play-button'>&#9654;</div>
