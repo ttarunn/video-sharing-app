@@ -1,11 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Cards = () => {
+  const id = 0
   return (
     <div className='card'>
         <img src='https://wallpapercave.com/wp/wp10159564.jpg' className='card-img' alt='card-img'/>
         <div className='play-div'></div>
-        <div className='play-button'>&#9654;</div>
+        <Link to={`/video/:${id}`}><div className='play-button'>&#9654;</div></Link>
         <div className='card-title'>Godzila Attack in the city</div>
         <div className='card-date'>10 Mar 2019</div>
         <div className='card-duration'>12 Mins</div>
