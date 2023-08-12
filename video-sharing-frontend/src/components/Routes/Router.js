@@ -4,7 +4,6 @@ import SignIn from '../SignIn';
 import LandingPage from '../LandingPage';
 import SignUp from '../SignUp';
 import MyVideos from '../MyVideos';
-import Upload from '../Upload';
 import VideoPlayer from '../VideoPlayer';
 
 const Router = ({children}) => {

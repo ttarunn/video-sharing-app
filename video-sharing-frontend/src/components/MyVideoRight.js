@@ -1,7 +1,7 @@
 import React from 'react'
 
 const MyVideoRight = ({card}) => {
-    const { title, img, date, view, description, duration } = card
+    const { title, date, view, description, duration } = card
   return (
     <div >
           <img src='https://wallpapercave.com/wp/wp10159564.jpg' alt='banner' className='my-video-banner'/>

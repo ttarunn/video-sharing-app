@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import Header from './Header'
 import Cards from './Cards'
-import { MdWidthFull } from 'react-icons/md'
+// import { MdWidthFull } from 'react-icons/md'
 
 const VideoPlayer = () => {
     const [data, setData] = useState([1,2,3,4,5,6,7,8,9,0])
