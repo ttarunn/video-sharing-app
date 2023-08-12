@@ -8,7 +8,9 @@ const userRegister = async(req,res) => {
     try {
         const hashedPass = await bcrypt.hash(req.body.password,10);
         if(req.body.password !== req.body.confirmpassword){
-            throw err;
+            res.status(400).json({
+                message:"Password and Confirm Password is not matching"
+            });
         }
 
         const newUser = new User ({
@@ -20,31 +22,50 @@ const userRegister = async(req,res) => {
         });
         const user = await newUser.save();
         res.status(201).json({
-            message:"user registered succesfully",
-            data :user
+            message:"User Registered succesfully!"
         })
         
     }
     catch (err){
-        res.status(500).json(err)
+        res.status(500).json({
+            err:err.message
+        })
     }
 }
 
 const userLogin = async (req,res) => {
+    console.log(req.body)
     try{
         const user = await User.findOne({email:req.body.email});
-        !user && res.status(400).json("Wrong Credential!");
-
-
         const validate = await bcrypt.compare(req.body.password,user.password);
-        !validate && res.status(400).json("Wrong Credential!");
-
-        //Jwt token
-        
-
+        console.log(user)
+        //Jwt token should be send in as token
+        if(validate){
+            const jwkToken = jwt.sign({
+                name:user.name,
+                email:user.email,
+                phone:user.phone,
+                profession:user.profession
+            },
+            process.env.JWT_SECRET_KEY,
+            {
+                expiresIn:"1hr"
+            });
+            
+            res.status(200).json({
+                message:"Success",
+                token:jwkToken
+            })
+        }else{
+            res.status(400).json({
+                message:"Wrong Credential!"
+            })
+        }
     }
     catch (err){
-        res.status(500).json(err)
+        res.status(400).json({
+            message:"Wrong Credential!"
+        })
     }
 }
 

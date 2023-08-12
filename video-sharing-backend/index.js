@@ -3,12 +3,14 @@ const app = express();
 const mongoose = require('mongoose');
 const userRoute = require('./controllers/auth');
 const videoRoute = require('./controllers/video')
+const dotenv = require('dotenv');
+const authentication = require('./routes/authentication');
+
+dotenv.config()
 
 const PORT = 8080 || process.env.PORT
 
-
-const url ="mongodb+srv://achyuthnarayan789:SCQl5SPiU23aQIzY@cluster0.oiinphw.mongodb.net/video-sharing?retryWrites=true&w=majority";
-mongoose.connect(url)
+mongoose.connect(process.env.MONGO_DB_URL)
   .then(() => {
     console.log("Connected to the database");
   })
@@ -18,7 +20,7 @@ mongoose.connect(url)
 
 app.use(express.json());
 app.use('/api/auth',userRoute)
-//app.use('/api/video',videoRoute)
+app.use('/api/video', authentication, videoRoute)
 app.use('/', (req, res) => {
   res.send("Hello World!")
 });

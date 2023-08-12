@@ -5,7 +5,6 @@ const videoSchema = new mongoose.Schema({
     title:{
         type:String,
         required:true,
-        unique:true,
     },
     desc:{
         type:String,
@@ -18,21 +17,23 @@ const videoSchema = new mongoose.Schema({
     },
     username:{
         type:String,
+        unique:true,
         required:true,
     },
     categories:{
-        type: Array,
+        type: String,
         required:true,
     },
     views:{
         type:Number,
-        required:true,
+        default: 0,
     },
     visibility:{
         type:String,
-        required:true
+        default: "Public"
     }
 
 })
 const Video = mongoose.model('videos',videoSchema);
+
 module.exports = Video;
