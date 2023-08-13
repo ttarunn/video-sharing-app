@@ -32,7 +32,6 @@ const videoSchema = new mongoose.Schema({
         type:String,
         default: "Public"
     }
-
 })
 const Video = mongoose.model('videos',videoSchema);
 
