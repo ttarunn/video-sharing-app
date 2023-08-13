@@ -9,7 +9,7 @@ const { getallPost } = require('./routes/videoauth');
 
 dotenv.config()
 
-const PORT = 8080 || process.env.PORT
+const PORT = process.env.PORT || 8080
 
 mongoose.connect(process.env.MONGO_DB_URL)
   .then(() => {
