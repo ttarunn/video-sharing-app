@@ -1,13 +1,12 @@
 const router =require("express").Router();
 
-const {createNewPost,getallPost, getallMyPost} = require('../routes/videoauth');
+const {createNewPost,deleteMyPost, getallMyPost, updateMyPost} = require('../routes/videoauth');
 
 
 router.post("/upload", createNewPost)
-router.get("/",getallPost);
-router.get("/id/:id",getallPost);
 router.get("/myvideos",getallMyPost);
-
+router.put("/updatePost/:id", updateMyPost)
+router.delete('/delete/:id', deleteMyPost)
 
 
 module.exports = router;

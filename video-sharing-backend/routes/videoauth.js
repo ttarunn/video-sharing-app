@@ -36,7 +36,6 @@ const createNewPost = async(req,res) => {
 
 const getallPost = async(req,res) => {
     const id = req.params.id;
-    console.log(req.params)
     let filter = {};
     if(id){
         filter = {
@@ -60,7 +59,6 @@ const getallMyPost = async(req,res) => {
     let filter = {
         username:req.userEmail
     };
-    console.log("req.userEmail")
     await Video.find(filter).then(result => {
         res.status(200).json({
             message:"Video Fetched Successfully!",
@@ -74,5 +72,35 @@ const getallMyPost = async(req,res) => {
 };
 
 
-module.exports = { createNewPost, getallPost, getallMyPost}
+const updateMyPost = async(req, res) => {
+    const filter = {
+        _id: req.params.id,
+        username:req.userEmail
+    }
+    const updatedContent = req.body
+    Video.findOneAndUpdate(filter,updatedContent).then(result => {
+        res.status(201).json({
+            message: "Post Updated Succesfully!",
+        })
+    }).catch(err => {
+        res.status(400).json({
+            message: "Unable to Update Post!",
+            err:err
+        })
+    })
+}
+
+const deleteMyPost = async (req, res) => {
+    const id = req.params.id;
+    Video.findOneAndDelete({_id:id}).then(result => {
+        res.status(201).json({
+            message:"Post Deleted Successfully!"
+        })
+    }).catch(err => {
+        res.status(401).json({
+            message:"Unable to Delete Post!"
+        })
+    })
+}
+module.exports = { createNewPost, getallPost, getallMyPost, updateMyPost, deleteMyPost}
 

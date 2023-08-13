@@ -5,6 +5,7 @@ const userRoute = require('./controllers/auth');
 const videoRoute = require('./controllers/video')
 const dotenv = require('dotenv');
 const authentication = require('./routes/authentication');
+const { getallPost } = require('./routes/videoauth');
 
 dotenv.config()
 
@@ -20,6 +21,8 @@ mongoose.connect(process.env.MONGO_DB_URL)
 
 app.use(express.json());
 app.use('/api/auth',userRoute)
+app.use('/api/video/getPosts', getallPost)
+app.use('/api/video/getPosts/:id', getallPost)
 app.use('/api/video', authentication, videoRoute)
 app.use('/', (req, res) => {
   res.send("Hello World!")

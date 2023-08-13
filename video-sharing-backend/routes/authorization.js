@@ -34,11 +34,11 @@ const userRegister = async(req,res) => {
 }
 
 const userLogin = async (req,res) => {
-    console.log(req.body)
+    
     try{
         const user = await User.findOne({email:req.body.email});
         const validate = await bcrypt.compare(req.body.password,user.password);
-        console.log(user)
+        
         //Jwt token should be send in as token
         if(validate){
             const jwkToken = jwt.sign({
@@ -54,7 +54,7 @@ const userLogin = async (req,res) => {
             
             res.status(200).json({
                 message:"Success",
-                token:jwkToken
+                token: jwkToken
             })
         }else{
             res.status(400).json({

@@ -22,7 +22,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-
+    image:{
+        type:String,
+        require:true
+    }
 
 })
 const User = mongoose.model("users",userSchema);
