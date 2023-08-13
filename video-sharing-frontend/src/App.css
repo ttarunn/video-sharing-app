@@ -390,7 +390,9 @@ h4{
   background: #4B4B5F 0% 0% no-repeat padding-box;
   margin-top: 1rem;
   text-align: center;
+  
 }
+
 .browse-file > p {
   margin: 0;
 }
@@ -444,12 +446,17 @@ input[type=text], input[type="password"], input[type="email"], input[type="tel"]
   background-color: #f1dddd;
   border-radius: 15px;
   overflow: hidden;
+  margin: auto;
 }
 .progress-bar-fill{
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: greenyellow;
+  color: #000000;
+  text-align: center;
+  font-size: .8rem;
+  font-weight: 600;
+  background-color: rgb(0, 255, 200);
 }
 .video-player{
   width: 100%;

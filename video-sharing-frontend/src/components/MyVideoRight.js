@@ -19,7 +19,7 @@ const MyVideoRight = ({card}) => {
           </div>
           <div className='options'>
             <div>
-              <lable htmlFor="category" className='label'>Category</lable>
+              <label htmlFor="category" className='label'>Category</label>
               <select id='category'>
               <option value={""}>Category</option>
                 <option value={"action"} className='option'>Action</option>
@@ -29,7 +29,7 @@ const MyVideoRight = ({card}) => {
               </select>
             </div>
             <div>
-              <lable htmlFor="visibility" className='label'>Visibility</lable>
+              <label htmlFor="visibility" className='label'>Visibility</label>
               <select id='visibility'>
               <option value={""}>Visibility</option>
                 <option value={"public"}>Public</option>
@@ -37,7 +37,7 @@ const MyVideoRight = ({card}) => {
               </select>
             </div>
             <div>
-              <lable htmlFor="other" className='label'>Other</lable>
+              <label htmlFor="other" className='label'>Other</label>
               <select id='other'>
               <option value={""}>Other</option>
                 

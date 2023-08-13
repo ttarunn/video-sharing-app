@@ -15,7 +15,7 @@ export const searchContext = createContext({
 // import '../App.css'
 function LandingPage() {
   const [viewMore, setViewMore] = useState(false);
-  const [search, setSearch] = useState([1,2,3,4,5,6])
+  const [search, setSearch] = useState([])
   
   if(search.length){
     return <SearchResult search={search}/>
