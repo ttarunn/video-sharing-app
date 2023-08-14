@@ -16,13 +16,16 @@ function LandingPage() {
   const [viewMore, setViewMore] = useState(false);
   const [search, setSearch] = useState([])
   const [postData, setPostData] = useState([])
-  useEffect(async ()=> {
-    const apiData = await fetch(`https://flickflow.onrender.com/api/video/getAllPosts`);
-    // const json = await apiData.json();
-    console.log(apiData.json())
-    // setPostData(apiData);
+
+  async function getAllVideoPosts(){
+    const data = await getAllPosts()
+
+    setPostData(data.videos)
     
-  })
+  }
+  useEffect(()=> {
+    getAllVideoPosts()
+  },[])
   
 
   if(search.length){
@@ -39,10 +42,10 @@ function LandingPage() {
       <div className='view-more' onClick={() => setViewMore(viewMore ? false : true)}>{!viewMore ? "View All" : "View Less"}</div>
     </div>
     <div className='card-div'>
-      {!viewMore ? postData.map((item, idx) => {
-        return <Cards />;
-      }) : new Array(10).fill(0).map((item, idx) => {
-        return <Cards />;
+      {!viewMore ? postData.map((card) => {
+        return <Cards card={card}/>;
+      }) : new Array(10).fill(0).map((card) => {
+        return <Cards card={card}/>;
       })}
     </div>
 
