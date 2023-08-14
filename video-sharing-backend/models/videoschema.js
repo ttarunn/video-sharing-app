@@ -13,11 +13,13 @@ const videoSchema = new mongoose.Schema({
     videoURL:{
         type:String,
         required:true,
-        unique:true
     },
     username:{
         type:String,
-        unique:true,
+        required:true,
+    },
+    userEmail:{
+        type:String,
         required:true,
     },
     categories:{

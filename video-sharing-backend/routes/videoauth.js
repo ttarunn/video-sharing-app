@@ -2,24 +2,31 @@ const Video = require('../models/videoschema');
 
 // This will create Posts
 const createNewPost = async(req,res) => {
-    const { title, username, videoURL, views, description, visibility, categories } = req.body;
-    if(title || username || videoURL || desc || categories){
+    const { title, videoURL, views, description, visibility, categories, duration, thumbnail } = req.body;
+    if(title || username || videoURL || description || categories || duration){
         const newVideo = new Video({
             title:title,
-            username:req.userEmail,
+            username:req.name,
+            userEmail:req.userEmail,
             userImg:req.userImg,
             videoURL:videoURL,
             description:description,
             categories:categories,
-            date: new Date().toLocaleDateString()
+            date: new Date().toLocaleDateString(),
+            duration:duration,
+            thumbnail:thumbnail,
+            views:views,
+            visibility:visibility
         });
         newVideo.save().then(response => {
             res.status(201).json({
-                message:"Video Uploaded!"
+                message:"Video Uploaded!",
+                data:response
             })
         }).catch(err => {
             res.status(500).json({
-                message:"Something Went Wrong!"
+                message:"Something Went Wrong!",
+                err:err
             })
         })
     }else{
@@ -38,10 +45,11 @@ const createNewPost = async(req,res) => {
 
 const getallPost = async(req,res) => {
     const id = req.params.id;
-    let filter = {};
+    let filter = {visibility:"Public"};
     if(id){
         filter = {
-            _id:id
+            _id:id,
+            visibility:"Public"
         }
     };
     await Video.find(filter).then(result => {
@@ -60,7 +68,6 @@ const getallPost = async(req,res) => {
 const getallMyPost = async(req,res) => {
     let filter = {
         username:req.userEmail,
-        visibility:"Public"
     };
     await Video.find(filter).then(result => {
         res.status(200).json({
