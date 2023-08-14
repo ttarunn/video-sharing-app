@@ -57,7 +57,8 @@ const getallPost = async(req,res) => {
 
 const getallMyPost = async(req,res) => {
     let filter = {
-        username:req.userEmail
+        username:req.userEmail,
+        visibility:"Public"
     };
     await Video.find(filter).then(result => {
         res.status(200).json({
@@ -101,6 +102,8 @@ const deleteMyPost = async (req, res) => {
             message:"Unable to Delete Post!"
         })
     })
-}
+};
+
+
 module.exports = { createNewPost, getallPost, getallMyPost, updateMyPost, deleteMyPost}
 
