@@ -7,9 +7,11 @@ const createNewPost = async(req,res) => {
         const newVideo = new Video({
             title:title,
             username:req.userEmail,
+            userImg:req.userImg,
             videoURL:videoURL,
-            desc:description,
-            categories:categories
+            description:description,
+            categories:categories,
+            date: new Date().toLocaleDateString()
         });
         newVideo.save().then(response => {
             res.status(201).json({

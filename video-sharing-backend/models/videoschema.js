@@ -6,7 +6,7 @@ const videoSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    desc:{
+    description:{
         type:String,
         required:true,
     },
@@ -31,6 +31,23 @@ const videoSchema = new mongoose.Schema({
     visibility:{
         type:String,
         default: "Public"
+    },
+    thumbnail:{
+        type:String,
+        required:true
+    },
+    date:{
+        type:String,
+        required:true,
+        default:new Date().toLocaleDateString()
+    },
+    userImg:{
+        type:String,
+        require:true
+    },
+    duration:{
+        type:Number,
+        required:true,
     }
 })
 const Video = mongoose.model('videos',videoSchema);

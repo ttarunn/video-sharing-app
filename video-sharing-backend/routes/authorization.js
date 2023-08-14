@@ -46,7 +46,8 @@ const userLogin = async (req,res) => {
                 name:user.name,
                 email:user.email,
                 phone:user.phone,
-                profession:user.profession
+                profession:user.profession,
+                userImg:user.userImg
             },
             process.env.JWT_SECRET_KEY,
             {
