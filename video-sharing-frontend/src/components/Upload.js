@@ -8,7 +8,9 @@ import axios from "axios";
 const Upload = () => {
   const navigate = useNavigate();
   const [videoUrl, setVideoUrl] = useState("");
-  const [progress, setProgress] = useState(false);
+  const [thumbnail, setThumbnail] = useState("")
+  const [progressVideo, setProgressVideo] = useState(false);
+  const [progressThumb, setProgressThumb] = useState(false)
   const [formData, setFormData] = useState({
     videoURL: "",
     name: "",
@@ -16,12 +18,12 @@ const Upload = () => {
     category: "",
     visibility: "",
     other: "other",
-
+    thumbnail:""
   });
   
-  const { REACT_APP_CLOUDINARY_POST_API, REACT_APP_CLOUD_NAME, REACT_APP_API_SERVER } = process.env;
+  const { REACT_APP_CLOUDINARY_VIDEO_POST_API, REACT_APP_CLOUD_NAME, REACT_APP_API_SERVER, REACT_APP_CLOUDINARY_IMAGE_POST_API } = process.env;
 
-  const cdnApi = async (files) => {
+  const cdnVideoUpload = async (files) => {
     setVideoUrl("");
     const data = new FormData();
     data.append("file", files);
@@ -29,15 +31,34 @@ const Upload = () => {
     data.append("cloud_name", REACT_APP_CLOUD_NAME);
 
     axios
-      .post(REACT_APP_CLOUDINARY_POST_API, data, {
+      .post(REACT_APP_CLOUDINARY_VIDEO_POST_API, data, {
         onUploadProgress: (event) => {
-          setProgress(Math.round(100 * event.loaded) / event.total);
+          setProgressVideo(Math.round(100 * event.loaded) / event.total);
         },
       })
       .then((result) => {
         setVideoUrl(result)
       });
   };
+ 
+  const cdnThumbnailUpload = async (files) => {
+    setThumbnail("");
+    const data = new FormData();
+    data.append("file", files);
+    data.append("upload_preset", "video-sharing");
+    data.append("cloud_name", REACT_APP_CLOUD_NAME);
+
+    axios
+      .post(REACT_APP_CLOUDINARY_IMAGE_POST_API, data, {
+        onUploadProgress: (event) => {
+          setProgressThumb(Math.round(100 * event.loaded) / event.total);
+        },
+      })
+      .then((result) => {
+        setThumbnail(result)
+      });
+  };
+ 
 
   const handleSubmit = async () => {
     await fetch(`${REACT_APP_API_SERVER}/createPost`, {
@@ -72,27 +93,35 @@ const Upload = () => {
               type="file"
               id="video"
               onChange={(e) => {
-                cdnApi(e.target.files[0]);
+                cdnVideoUpload(e.target.files[0]);
               }}
+              required
             />
             <VscCloudUpload className="upload-icon" />
-            <p>Drag and drop to upload</p>
-            <p>or browse to choose a file</p>
-            {progress && <ProgressBar progress={progress} />}
+            <p>Browse to choose a file</p>
+            {progressVideo && <ProgressBar progress={progressVideo} />}
           </div>
+        </label>
+        <label htmlFor="thumbnail">
+        <div className="thumbnail">
+          <input type="file" id="thumbnail" onChange={(e)=> {
+            cdnThumbnailUpload(e.target.files[0])
+          }} required/>
+          {progressThumb?<ProgressBar progress={progressThumb} />:"Upload Thumbail"}
+        </div>
         </label>
         <input type="text" placeholder="Name" className="upload-name" onChange={(e)=> {
           setFormData({
             ...formData,
             name:e.target.value
           })
-        }}/>
+        }} required/>
         <textarea placeholder="Description" onChange={(e)=> {
           setFormData({
             ...formData,
             description:e.target.value
           })
-        }}/>
+        }} required/>
 
         <div className="upload-select">
           <div>
@@ -147,7 +176,8 @@ const Upload = () => {
         <button className="my-video-btn btn-purple" type="submit" onClick={()=> {
           setFormData({
             ...formData,
-            videoURL:videoUrl.data.secure_url
+            videoURL:videoUrl.data.secure_url,
+            thumbnail:thumbnail.data.secure_url
           })
         }}>Save</button>
       </form>
