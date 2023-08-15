@@ -7,7 +7,7 @@ const videoRoute = require('./controllers/video')
 const dotenv = require('dotenv');
 const authentication = require('./routes/authentication');
 const bodyParser = require('body-parser')
-const { getallPost } = require('./routes/videoauth');
+const { getallPost, updateViews } = require('./routes/videoauth');
 
 dotenv.config()
 app.use(cors());
@@ -26,9 +26,10 @@ mongoose.connect(process.env.MONGO_DB_URL)
   });
 
 app.use(express.json());
-app.use('/api/auth',userRoute)
+app.use('/api/auth', userRoute)
 app.use('/api/video/getAllPosts', getallPost)
 app.use('/api/video/getPost/:id', getallPost)
+app.use("/api/video/updateViews/:id", updateViews)
 app.use('/api/video', authentication, videoRoute)
 app.use('/', (req, res) => {
   res.send("Hello World!")

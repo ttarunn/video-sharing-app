@@ -120,6 +120,23 @@ const deleteMyPost = async (req, res) => {
     })
 };
 
+const updateViews = async(req, res) => {
+    const id = req.params.id
+    Video.findOneAndUpdate({
+        _id : id
+    },{ $inc: { views: 1 }}).then(result => {
+        res.status(201).json({
+            message: "Update Success",
+            data: result
+        })
+        }).catch(err => {
+            res.status(400).json({
+                status: "Failed",
+                err:err
+            })
+    })
+}
 
-module.exports = { createNewPost, getallPost, getallMyPost, updateMyPost, deleteMyPost}
+
+module.exports = { createNewPost, getallPost, getallMyPost, updateMyPost, deleteMyPost, updateViews}
 

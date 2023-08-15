@@ -1,5 +1,5 @@
 {
-  "name": "video-sharing-backend",
+  "name": "flick-flow-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Achyuth",
+  "author": "Flick_Flow",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
