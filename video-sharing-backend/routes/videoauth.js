@@ -2,7 +2,7 @@ const Video = require('../models/videoschema');
 
 // This will create Posts
 const createNewPost = async(req,res) => {
-    const { title, videoURL, views, description, visibility, categories, duration, thumbnail } = req.body;
+    const { title, videoURL, description, visibility, categories, duration, thumbnail } = req.body;
     if(title || username || videoURL || description || categories || duration){
         const newVideo = new Video({
             title:title,
@@ -15,7 +15,6 @@ const createNewPost = async(req,res) => {
             date: new Date().toLocaleDateString(),
             duration:duration,
             thumbnail:thumbnail,
-            views:views,
             visibility:visibility
         });
         newVideo.save().then(response => {
@@ -59,7 +58,8 @@ const getallPost = async(req,res) => {
         })
     }).catch(err => {
         res.status(501).json({
-            message:"Unable to Fetch!1"
+            message:"Unable to Fetch!",
+            err:err
         })
     });
 };
@@ -76,7 +76,8 @@ const getallMyPost = async(req,res) => {
         })
     }).catch(err => {
         res.status(501).json({
-            message:"Unable to Fetch!!"
+            message:"Unable to Fetch!!",
+            err:err
         })
     });
 };
@@ -102,13 +103,18 @@ const updateMyPost = async(req, res) => {
 
 const deleteMyPost = async (req, res) => {
     const id = req.params.id;
-    Video.findOneAndDelete({_id:id}).then(result => {
+    const filter = {
+        _id: req.params.id,
+        username:req.userEmail
+    }
+    Video.findOneAndDelete(filter).then(result => {
         res.status(201).json({
             message:"Post Deleted Successfully!"
         })
     }).catch(err => {
         res.status(401).json({
-            message:"Unable to Delete Post!"
+            message:"Unable to Delete Post!",
+            err:err
         })
     })
 };

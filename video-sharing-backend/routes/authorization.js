@@ -29,7 +29,7 @@ const userRegister = async(req,res) => {
     }
     catch (err){
         res.status(500).json({
-            err:err.message
+            err:err
         })
     }
 }
@@ -66,7 +66,8 @@ const userLogin = async (req,res) => {
     }
     catch (err){
         res.status(400).json({
-            message:"Wrong Credential!"
+            message:"Wrong Credential!",
+            err:err
         })
     }
 }

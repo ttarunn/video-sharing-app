@@ -6,10 +6,15 @@ const userRoute = require('./controllers/auth');
 const videoRoute = require('./controllers/video')
 const dotenv = require('dotenv');
 const authentication = require('./routes/authentication');
+const bodyParser = require('body-parser')
 const { getallPost } = require('./routes/videoauth');
 
 dotenv.config()
-app.use(cors())
+app.use(cors());
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false}));
+
 const PORT = process.env.PORT || 8080
 
 mongoose.connect(process.env.MONGO_DB_URL)
