@@ -68,7 +68,7 @@ const getallPost = async(req,res) => {
 
 const getallMyPost = async(req,res) => {
     let filter = {
-        username:req.userEmail,
+        userEmail:req.userEmail,
     };
     await Video.find(filter).then(result => {
         res.status(200).json({
