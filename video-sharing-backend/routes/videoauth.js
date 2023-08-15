@@ -2,10 +2,10 @@ const Video = require('../models/videoschema');
 
 // This will create Posts
 const createNewPost = async(req,res) => {
-    const { title, videoURL, description, visibility, categories, duration, thumbnail } = req.body;
-    if(title || username || videoURL || description || categories || duration){
+    const { name, videoURL, description, visibility, categories, duration, thumbnail } = req.body;
+    if(name && videoURL && description && categories && duration && thumbnail){
         const newVideo = new Video({
-            title:title,
+            title:name,
             username:req.name,
             userEmail:req.userEmail,
             userImg:req.userImg,
@@ -75,7 +75,7 @@ const getallMyPost = async(req,res) => {
             videos:result
         })
     }).catch(err => {
-        res.status(501).json({
+        res.status(500).json({
             message:"Unable to Fetch!!",
             err:err
         })
