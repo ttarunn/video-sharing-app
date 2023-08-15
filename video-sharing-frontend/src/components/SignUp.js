@@ -88,7 +88,7 @@ const SignUp = () => {
             handleSubmit(formData);
           }}
         >
-          {status === 0 ? "Processing..." : navigatePage(status)}
+          {status === 0 ? "" : navigatePage(status)}
           <h1>Register</h1>
           <p>Register to continue access pages</p>
 
