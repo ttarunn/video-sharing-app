@@ -68,7 +68,7 @@ const Upload = () => {
   
 
   const handleSubmit = async (data) => {
-    console.log("in")
+    console.log(REACT_APP_API_SERVER)
     const result = await fetch(`${REACT_APP_API_SERVER}/api/video/upload`, {
       method:"POST",
       headers: {
