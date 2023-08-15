@@ -3,6 +3,7 @@ const Video = require('../models/videoschema');
 // This will create Posts
 const createNewPost = async(req,res) => {
     const { title, videoURL, description, visibility, categories, duration, thumbnail } = req.body;
+    console.log(req.body)
     if(title || username || videoURL || description || categories || duration){
         const newVideo = new Video({
             title:title,
@@ -17,6 +18,7 @@ const createNewPost = async(req,res) => {
             thumbnail:thumbnail,
             visibility:visibility
         });
+        console.log(newVideo)
         newVideo.save().then(response => {
             res.status(201).json({
                 message:"Video Uploaded!",
