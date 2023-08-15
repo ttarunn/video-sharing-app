@@ -87,7 +87,7 @@ const getallMyPost = async(req,res) => {
 const updateMyPost = async(req, res) => {
     const filter = {
         _id: req.params.id,
-        username:req.userEmail
+        userEmail:req.userEmail
     }
     const updatedContent = req.body
     Video.findOneAndUpdate(filter,updatedContent).then(result => {
@@ -106,7 +106,7 @@ const deleteMyPost = async (req, res) => {
     const id = req.params.id;
     const filter = {
         _id: req.params.id,
-        username:req.userEmail
+        userEmail:req.userEmail
     }
     Video.findOneAndDelete(filter).then(result => {
         res.status(201).json({
