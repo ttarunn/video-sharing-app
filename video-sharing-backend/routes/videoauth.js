@@ -17,6 +17,7 @@ const createNewPost = async(req,res) => {
             thumbnail:thumbnail,
             visibility:visibility
         });
+        console.log(newVideo)
         newVideo.save().then(response => {
             res.status(201).json({
                 message:"Video Uploaded!",
