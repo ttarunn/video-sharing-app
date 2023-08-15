@@ -1,21 +1,28 @@
+
 import React from 'react'
+import Shimmer from './Shimmer'
 
 const MyVideoRight = ({card}) => {
-    const { title, date, view, description, duration } = card
+  
+    const { title, date, view, description, duration } = card    
+
+    if(card.length === 0){
+      return <Shimmer/>
+    }
   return (
     <div >
-          <img src='https://wallpapercave.com/wp/wp10159564.jpg' alt='banner' className='my-video-banner'/>
+          <img src={card.thumbnail} alt='banner' className='my-video-banner'/>
           <div className='my-videos-details'>
-            <h2 className='my-videos-title'>{ title }</h2>
+            <h2 className='my-videos-title'>{ card.title }</h2>
             <div className='my-video-additional'>
-              <div>{ date }</div>
-              <div>{ duration }</div>
-              <div>{ view }</div>
+              <div>{ card.date }</div>
+              <div>{ card.duration } min</div>
+              <div>{ card.view } views</div>
             </div>
           </div>
           <div className='description'>
             <p style={{color:"white"}}>Description</p>
-            <p style={{color:"white"}}>{ description }</p>
+            <p style={{color:"white"}}>{ card.description }</p>
           </div>
           <div className='options'>
             <div>

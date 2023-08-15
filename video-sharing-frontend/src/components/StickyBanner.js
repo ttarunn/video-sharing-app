@@ -1,26 +1,27 @@
 import React from 'react'
 
-const StickyBanner = () => {
+const StickyBanner = ({ postData }) => {
+  const {title, date, duration, views, thumbnail, username, userImg} = postData
   return (
     <div className='sticky-banner'>
         <img
-        src="https://wallpapercave.com/wp/wp10159564.jpg"
+        src={thumbnail}
         className="sticky-banner-img"
         alt="banner"
       />
       <div className="sticky-banner-details">
-        <div className="sticky-banner-title">Fast & Furious</div>
+        <div className="sticky-banner-title">{title}</div>
         <div className="sticky-video-details">
-          <div>10 Mar 2019</div>
-          <div>12 Mins</div>
-          <div>200 views</div>
+          <div>{date}</div>
+          <div>{duration} Mins</div>
+          <div>{views} views</div>
         </div>
         <img
-          src="https://d3ml3b6vywsj0z.cloudfront.net/company_images/605db35410fce904a7a8dcd5_images.png"
+          src={userImg}
           className="sticky-pub-img"
           alt="pub-img"
         />
-        <h5 className="sticky-pub-name">Publisher Name</h5>
+        <h5 className="sticky-pub-name">{username}</h5>
       </div>
     </div>
   )

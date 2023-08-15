@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdCancel } from "react-icons/md";
 import { VscCloudUpload } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,8 @@ const Upload = () => {
   const [thumbnail, setThumbnail] = useState("")
   const [progressVideo, setProgressVideo] = useState(false);
   const [progressThumb, setProgressThumb] = useState(false)
+  const[token, setToken] = useState('')
+  const [status, setStatus] = useState(0)
   const [formData, setFormData] = useState({
     videoURL: "",
     name: "",
@@ -22,7 +24,7 @@ const Upload = () => {
   });
   
   const { REACT_APP_CLOUDINARY_VIDEO_POST_API, REACT_APP_CLOUD_NAME, REACT_APP_API_SERVER, REACT_APP_CLOUDINARY_IMAGE_POST_API } = process.env;
-
+  
   const cdnVideoUpload = async (files) => {
     setVideoUrl("");
     const data = new FormData();
@@ -58,32 +60,45 @@ const Upload = () => {
         setThumbnail(result)
       });
   };
- 
+  
 
-  const handleSubmit = async () => {
-    await fetch(`${REACT_APP_API_SERVER}/createPost`, {
-      method: "POST",
+  useEffect(()=> {
+    setToken(localStorage.getItem('token'));
+  },[])
+  
+
+  const handleSubmit = async (data) => {
+    console.log("in")
+    const result = await fetch(`${REACT_APP_API_SERVER}/api/video/upload`, {
+      method:"POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type":"application/json",
         "Access-Control-Allow-Origin": "*",
+        "Authorization": token
       },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+      body:JSON.stringify(data),
+    }).then(res => res.json()).then(res=> console.log(res))
+    .catch(err => console.log(err))
+    
+    // const json = await result.json()
+    console.log(result, "in2")
+    // console.log(json)
+  }
+  function navigatePage(status){
+    if(status === 201){
+        // alert("Registered Successfully")
+        return navigate('/myvideos')
+    }else{
+        alert("Check Credential Once")
+    }
+  }
   return (
     <div id="upload-container">
       <form className="upload" onSubmit={(e)=> {
         e.preventDefault();
-        handleSubmit()
         console.log(formData)
+        console.log(handleSubmit(formData))
+        // navigatePage(status)
       }}>
         <MdCancel onClick={() => navigate("/myvideos")} className="cancel" />
         <h4>Upload New Video</h4>
@@ -155,8 +170,8 @@ const Upload = () => {
               })
             }}>
               <option value={""}>Visibility</option>
-              <option value={"public"}>Public</option>
-              <option value={"private"}>Private</option>
+              <option value={"Public"}>Public</option>
+              <option value={"Private"}>Private</option>
             </select>
           </div>
           <div>
@@ -173,7 +188,7 @@ const Upload = () => {
             </select>
           </div>
         </div>
-        <button className="my-video-btn btn-purple" type="submit" onClick={()=> {
+        <button className="my-video-btn btn-purple" onClick={()=> {
           setFormData({
             ...formData,
             videoURL:videoUrl.data.secure_url,

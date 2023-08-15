@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlinePlusCircle } from 'react-icons/ai'
+import axios from 'axios';
+
 const SignUp = () => {
     const [formData, setFormData] = useState({
         name:"",
@@ -8,9 +10,55 @@ const SignUp = () => {
         phone:"",
         profession:"",
         password:"",
-        cpassword:"",
-        file:""
-    })
+        confirmpassword:"",
+        imageURL:""
+    });
+
+    const [imgURL, setImgURL] = useState('');
+    const [status, setStatus] = useState(false);
+    // const [err, setErr] = useState('')
+    const navigate = useNavigate()
+
+    const { REACT_APP_CLOUDINARY_VIDEO_POST_API, REACT_APP_CLOUD_NAME, REACT_APP_API_SERVER, REACT_APP_CLOUDINARY_IMAGE_POST_API } = process.env;
+
+    const handleSubmit = async (formData)=> {
+        const post = await fetch(`${REACT_APP_API_SERVER}/api/auth/register`,{
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+              },
+            body: JSON.stringify(formData),
+        })
+        .then((res) => setStatus(res.status))
+          .catch((err) => {
+      });
+    };
+
+
+    const cdnImgUpload = async (files) => {
+        setImgURL("");
+        const data = new FormData();
+        data.append("file", files);
+        data.append("upload_preset", "video-sharing");
+        data.append("cloud_name", REACT_APP_CLOUD_NAME);
+    
+        axios
+          .post(REACT_APP_CLOUDINARY_IMAGE_POST_API, data)
+          .then((result) => {
+            setImgURL(result.data.secure_url)
+            console.log(imgURL, "img")
+          });
+      };
+
+      function navigatePage(status){
+        if(status === 201){
+            alert("Registered Successfully")
+            return navigate('/signin')
+        }else{
+            alert("Not Registered Try Again")
+        }
+      }
   return (
     <div className='sign-in-page'>
         <div className='left'>
@@ -22,16 +70,15 @@ const SignUp = () => {
         <div className='right'>
         <form className='center-signup' onSubmit={(e)=> {
             e.preventDefault();
-            console.log(formData)
+            
+            handleSubmit(formData);
+            navigatePage(status)
         }}>
             <h1>Register</h1>
             <p>Register to continue access pages</p>
 
-            <label htmlFor="files" className="signup-img">{!formData.file?<AiOutlinePlusCircle color='gray'/>:<img src='https://d3ml3b6vywsj0z.cloudfront.net/company_images/605db35410fce904a7a8dcd5_images.png' alt='img' className='signup-img'/>}</label>
-            <input id="files" type='file' accept="image/png, image/jpeg" onChange={(e)=> setFormData({
-                ...formData,
-                file:e.target.files[0].name
-            })} required/>
+            <label htmlFor="files" className="signup-img">{imgURL === ""?<AiOutlinePlusCircle color='gray'/>:<img src={imgURL} alt='img' className='signup-img'/>}</label>
+            <input id="files" type='file' accept="image/png, image/jpeg" onChange={(e)=> cdnImgUpload(e.target.files[0])} required/>
             <input type='text' placeholder='Name' className='signup-name' onChange={(e)=> setFormData({
                 ...formData,
                 name:e.target.value
@@ -50,7 +97,8 @@ const SignUp = () => {
             required/>
             <input type='text' placeholder='Profession' className='signup-email' onChange={(e)=> setFormData({
                 ...formData,
-                profession:e.target.value
+                profession:e.target.value,
+                imageURL:imgURL
             })}
             required/>
             <input type='password' placeholder='Password' className='signup-email' onChange={(e)=> setFormData({
@@ -60,10 +108,10 @@ const SignUp = () => {
             required/>
             <input type='password' placeholder='Confirm Password' className='signup-email' onChange={(e)=> setFormData({
                 ...formData,
-                cpassword:e.target.value
+                confirmpassword:e.target.value
             })}
             required/>
-            <button className='signup-btn'>Register</button>
+            <button className='signup-btn' type='submit'>Register</button>
         </form>
         </div>
     </div>
