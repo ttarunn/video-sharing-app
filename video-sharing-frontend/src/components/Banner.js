@@ -1,7 +1,7 @@
 import React from "react";
 
 const Banner = ({ postData }) => {
-  const {title, date, duration, views, thumbnail, username, userImg} = postData
+  const { title, date, duration, views, thumbnail, username, userImg } = postData
   return (
     <div className="banner">
       <img

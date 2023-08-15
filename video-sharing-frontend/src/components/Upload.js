@@ -5,15 +5,14 @@ import { useNavigate } from "react-router-dom";
 import ProgressBar from "./ProgressBar";
 import axios from "axios";
 
-
 const Upload = () => {
   const navigate = useNavigate();
   const [videoUrl, setVideoUrl] = useState("");
-  const [thumbnail, setThumbnail] = useState("")
+  const [thumbnail, setThumbnail] = useState("");
   const [progressVideo, setProgressVideo] = useState(false);
-  const [progressThumb, setProgressThumb] = useState(false)
-  const[token, setToken] = useState('')
-  const [status, setStatus] = useState(0)
+  const [progressThumb, setProgressThumb] = useState(false);
+  const [token, setToken] = useState("");
+  const [status, setStatus] = useState(0);
   const [formData, setFormData] = useState({
     videoURL: "",
     name: "",
@@ -21,12 +20,17 @@ const Upload = () => {
     categories: "",
     visibility: "",
     other: "other",
-    thumbnail:"",
-    duration:0
+    thumbnail: "",
+    duration: 0,
   });
-  
-  const { REACT_APP_CLOUDINARY_VIDEO_POST_API, REACT_APP_CLOUD_NAME, REACT_APP_API_SERVER, REACT_APP_CLOUDINARY_IMAGE_POST_API } = process.env;
-  
+
+  const {
+    REACT_APP_CLOUDINARY_VIDEO_POST_API,
+    REACT_APP_CLOUD_NAME,
+    REACT_APP_API_SERVER,
+    REACT_APP_CLOUDINARY_IMAGE_POST_API,
+  } = process.env;
+
   const cdnVideoUpload = async (files) => {
     setVideoUrl("");
     const data = new FormData();
@@ -41,10 +45,10 @@ const Upload = () => {
         },
       })
       .then((result) => {
-        setVideoUrl(result)
+        setVideoUrl(result);
       });
   };
- 
+
   const cdnThumbnailUpload = async (files) => {
     setThumbnail("");
     const data = new FormData();
@@ -59,40 +63,42 @@ const Upload = () => {
         },
       })
       .then((result) => {
-        setThumbnail(result)
+        setThumbnail(result);
       });
   };
-  
 
-  useEffect(()=> {
-    setToken(localStorage.getItem('token'));
-  },[])
-  
+  useEffect(() => {
+    setToken(localStorage.getItem("token"));
+  }, []);
 
   const handleSubmit = async (data) => {
-    
-    const result = await fetch(`${REACT_APP_API_SERVER}/api/video/upload`, {
-      method:"POST",
+    await fetch(`${REACT_APP_API_SERVER}/api/video/upload`, {
+      method: "POST",
       headers: {
-        "Content-Type":"application/json",
+        "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
-        "Authorization": token
+        Authorization: token,
       },
-      body:JSON.stringify(data),
-    }).then(res => {if(res.status === 201) {
-      navigate('/myvideos')}
-      window.location.reload()
+      body: JSON.stringify(data),
     })
-    .catch(err => console.log(err))
+      .then((res) => {
+        if (res.status === 201) {
+          navigate("/myvideos");
+        }
+        window.location.reload();
+      })
+      .catch((err) => setStatus(err.status));
+  };
 
-  }
-  
   return (
     <div id="upload-container">
-      <form className="upload" onSubmit={(e)=> {
-        e.preventDefault();
-        handleSubmit(formData)
-      }}>
+      <form
+        className="upload"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit(formData);
+        }}
+      >
         <MdCancel onClick={() => navigate("/myvideos")} className="cancel" />
         <h4>Upload New Video</h4>
         <label htmlFor="video">
@@ -111,37 +117,59 @@ const Upload = () => {
           </div>
         </label>
         <label htmlFor="thumbnail">
-        <div className="thumbnail">
-          <input type="file" id="thumbnail" onChange={(e)=> {
-            cdnThumbnailUpload(e.target.files[0])
-          }} required/>
-          {progressThumb?<ProgressBar progress={progressThumb} />:"Upload Thumbnail"}
-        </div>
+          <div className="thumbnail">
+            <input
+              type="file"
+              id="thumbnail"
+              onChange={(e) => {
+                cdnThumbnailUpload(e.target.files[0]);
+              }}
+              required
+            />
+            {progressThumb ? (
+              <ProgressBar progress={progressThumb} />
+            ) : (
+              "Upload Thumbnail"
+            )}
+          </div>
         </label>
-        <input type="text" placeholder="Name" className="upload-name" onChange={(e)=> {
-          setFormData({
-            ...formData,
-            name:e.target.value
-          })
-        }} required/>
-        <textarea placeholder="Description" onChange={(e)=> {
-          setFormData({
-            ...formData,
-            description:e.target.value
-          })
-        }} required/>
+        <input
+          type="text"
+          placeholder="Name"
+          className="upload-name"
+          onChange={(e) => {
+            setFormData({
+              ...formData,
+              name: e.target.value,
+            });
+          }}
+          required
+        />
+        <textarea
+          placeholder="Description"
+          onChange={(e) => {
+            setFormData({
+              ...formData,
+              description: e.target.value,
+            });
+          }}
+          required
+        />
 
         <div className="upload-select">
           <div>
-            <label htmlFor="category" className="label" >
+            <label htmlFor="category" className="label">
               Category
             </label>
-            <select id="category" onChange={(e)=> {
-              setFormData({
-                ...formData,
-                categories:e.target.value
-              })
-            }}>
+            <select
+              id="category"
+              onChange={(e) => {
+                setFormData({
+                  ...formData,
+                  categories: e.target.value,
+                });
+              }}
+            >
               <option value={""}>Category</option>
               <option value={"Action"} className="option">
                 Action
@@ -153,15 +181,18 @@ const Upload = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="visibility" className="label" >
+            <label htmlFor="visibility" className="label">
               Visibility
             </label>
-            <select id="visibility" onChange={(e)=> {
-              setFormData({
-                ...formData,
-                visibility:e.target.value
-              })
-            }}>
+            <select
+              id="visibility"
+              onChange={(e) => {
+                setFormData({
+                  ...formData,
+                  visibility: e.target.value,
+                });
+              }}
+            >
               <option value={""}>Visibility</option>
               <option value={"Public"}>Public</option>
               <option value={"Private"}>Private</option>
@@ -171,24 +202,32 @@ const Upload = () => {
             <label htmlFor="other" className="label">
               Other
             </label>
-            <select id="other" onChange={(e)=> {
-              setFormData({
-                ...formData,
-                other:e.target.value
-              })
-            }}>
+            <select
+              id="other"
+              onChange={(e) => {
+                setFormData({
+                  ...formData,
+                  other: e.target.value,
+                });
+              }}
+            >
               <option value={""}>Other</option>
             </select>
           </div>
         </div>
-        <button className="my-video-btn btn-purple" onClick={()=> {
-          setFormData({
-            ...formData,
-            videoURL:videoUrl.data.secure_url,
-            duration:parseInt(videoUrl.data.duration),
-            thumbnail:thumbnail.data.secure_url
-          })
-        }}>Save</button>
+        <button
+          className="my-video-btn btn-purple"
+          onClick={() => {
+            setFormData({
+              ...formData,
+              videoURL: videoUrl.data.secure_url,
+              duration: parseInt(videoUrl.data.duration),
+              thumbnail: thumbnail.data.secure_url,
+            });
+          }}
+        >
+          Save
+        </button>
       </form>
     </div>
   );

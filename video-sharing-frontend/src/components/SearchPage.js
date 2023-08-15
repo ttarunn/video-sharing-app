@@ -1,18 +1,21 @@
-import React from 'react'
-import Cards from './Cards'
-import Header from './Header'
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React from "react";
+import Cards from "./Cards";
+
+import { useSelector } from "react-redux";
 
 const SearchPage = () => {
-  const searchResultVideo = useSelector(store => store.posts.searchResultVideo);
+  const searchResultVideo = useSelector(
+    (store) => store.posts.searchResultVideo
+  );
   return (
     <>
-        <div className='search-page-container'>
-            {searchResultVideo[0].map(item => <Link to={`myvideos/${item._id}`}><Cards card={item}/></Link>)}
-        </div>
+      <div className="search-page-container">
+        {searchResultVideo[0].map((item) => (
+          <Cards card={item} />
+        ))}
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default SearchPage
+export default SearchPage;

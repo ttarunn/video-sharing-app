@@ -8,7 +8,6 @@ import store from './components/utils/store';
 export const authContext = createContext();
 
 function App() {
-  const [login, setLogin] = useState(false)
   return (
     <>
     <Provider store={store}>
