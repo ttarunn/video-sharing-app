@@ -3,37 +3,43 @@ import Cards from './Cards'
 import Banner from './Banner'
 import StickyBanner from './StickyBanner';
 import Header from './Header'
-import SearchResult from './SearchPage';
+import SearchPage from './SearchPage';
 import { getAllPosts } from './utils/helper';
 import Shimmer from './Shimmer';
-import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
-
+import { addVideo } from './utils/PostsSlice';
+import useOnline from './utils/useOnline';
+import Offline from './Offline';
 export const searchContext = createContext({
-  search: [],
+  search: true,
   setSearch:()=> {}
 });
 
 
 function LandingPage() {
   const [viewMore, setViewMore] = useState(false);
-  const [search, setSearch] = useState([])
-  const [postData, setPostData] = useState([])
+  const [postData, setPostData] = useState([]);
+  const [search, setSearch] = useState(true)
   
-  const navigate = useNavigate()
-
+  
+  const tL = useSelector(store => store.posts.textLength);
+  const dispatch = useDispatch()
+  const online = useOnline()
   async function getAllVideoPosts(){
     const data = await getAllPosts()
-    setPostData(data.videos.reverse())
+    setPostData(data?.videos?.reverse());
+    dispatch(addVideo(data?.videos?.reverse()))
   }
   useEffect(()=> {
     getAllVideoPosts()
   },[])
-  
 
-  if(search.length){
-    return <SearchResult search={search}/>
-  }
+  console.log(online)
+  
+ if(!online){
+  return <Offline/>
+ }
   if(postData.length === 0){
     return <Shimmer/>
   }
@@ -41,6 +47,7 @@ function LandingPage() {
     <searchContext.Provider value={{search, setSearch}}>
       <Header />
     </searchContext.Provider>
+    {tL?<SearchPage/>:<>
     {!viewMore ? <Banner postData={postData[0]}/> : <StickyBanner postData={postData[0]}/>}
   
     <div className='action'>
@@ -48,13 +55,13 @@ function LandingPage() {
       <div className='view-more' onClick={() => setViewMore(viewMore ? false : true)}>{!viewMore ? "View All" : "View Less"}</div>
     </div>
     <div className='card-div'>
-      {!viewMore ? postData.map((item, idx) => {
+      {!viewMore ? new Array(4).fill(0).map((item, idx) => {
         return <Link to={`/myvideos/:${postData[idx]._id}`}><Cards card={postData[idx]}/></Link>;
       }) : postData.map((card) => {
         return <Cards card={card}/>;
       })}
     </div>
-
+    </>}
   </>;
 }
 

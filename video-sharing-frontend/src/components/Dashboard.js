@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { authContext } from '../App'
+
 
 const Dashboard = () => {
-  const { login, setLogin } = useContext(authContext)
+  
   const [token, setToken] = useState('')
   useEffect(()=> {
     setToken(localStorage.getItem('token'))

@@ -2,11 +2,12 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authContext } from "../App";
 import Shimmer from "./Shimmer";
+import Offline from "./Offline";
+import useOnline from "./utils/useOnline";
 
 const SignIn = () => {
-  const { REACT_APP_CLOUDINARY_VIDEO_POST_API, REACT_APP_CLOUD_NAME, REACT_APP_API_SERVER, REACT_APP_CLOUDINARY_IMAGE_POST_API } = process.env;
-
-  const { setLogin } = useContext(authContext);
+  const { REACT_APP_API_SERVER } = process.env;
+  const online = useOnline()
   const[response, setResponse] = useState({
     status:-1,
     token:""
@@ -45,7 +46,10 @@ const SignIn = () => {
           alert('check')
         }
       }
-
+      
+      if(!online){
+        return <Offline/>
+       }
 
   return (
     <>

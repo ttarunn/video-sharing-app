@@ -1,0 +1,27 @@
+import { createSlice } from "@reduxjs/toolkit";
+
+
+const postsSlice = createSlice({
+    name:"posts",
+    initialState: {
+        videos: [],
+        searchResultVideo : [],
+        textLength : 0
+    },
+    reducers: {
+        addVideo: (state, action) => {
+            state.videos.push(action.payload)
+        },
+        addSearchResultVideos: (state, action) => {
+            state.searchResultVideo = []
+            state.searchResultVideo.push(action.payload)
+        },
+        addTextLength: (state, action) => {
+            state.textLength = action.payload
+        }
+    }
+});
+
+export const { addVideo, addSearchResultVideos, addTextLength } = postsSlice.actions
+
+export default postsSlice.reducer;

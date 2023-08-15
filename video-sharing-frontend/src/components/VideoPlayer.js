@@ -54,7 +54,7 @@ const VideoPlayer = () => {
                 </div>
             </div>
             <div className='suggestion'>
-                {data.map(card => <Cards card={card}/>)}
+                {data.map(card => <Cards card={card} key={card.Id}/>)}
             </div>
         </div>}
     </>

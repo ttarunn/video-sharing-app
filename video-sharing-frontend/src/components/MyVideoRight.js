@@ -1,11 +1,44 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import Shimmer from './Shimmer'
-
+import { deletePost } from './utils/helper'
+import { useNavigate } from 'react-router'
 const MyVideoRight = ({card}) => {
-  
-    const { title, date, view, description, duration } = card    
+  const [token, setToken] = useState(localStorage.getItem('token'))
+  const [updatedData, setUpdatedData] = useState({
+    categories:card.categories,
+    visibility:'Public',
+    description:card.description
+  });
+  const navigate = useNavigate()
 
+  
+  const updatePost = async(data)=> {
+    if(data.categories !== "" ){
+      console.log(process.env.REACT_APP_API_SERVER)
+      await fetch(`${process.env.REACT_APP_API_SERVER}/api/video/updatePost/${card._id}`,{
+        method:"PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          'Authorization': token
+        },
+        body: JSON.stringify(data),
+      })
+      .then(result =>{if(result.status === 201) window.location.reload()})
+      .catch(err => console.log(err));
+    }else{
+      alert('please select categories')
+    }
+}
+
+async function deleteMyPost(id, token){
+    const res = await deletePost(id, token);
+    if(res === 201){
+      navigate('/myvideos');
+      window.location.reload()
+    }
+}
     if(card.length === 0){
       return <Shimmer/>
     }
@@ -17,17 +50,25 @@ const MyVideoRight = ({card}) => {
             <div className='my-video-additional'>
               <div>{ card.date }</div>
               <div>{ card.duration } min</div>
-              <div>{ card.view } views</div>
+              <div>{ card.views } views</div>
             </div>
           </div>
           <div className='description'>
             <p style={{color:"white"}}>Description</p>
-            <p style={{color:"white"}}>{ card.description }</p>
+            <textarea style={{color:"white"}} value={ updatedData.description } onChange={(e)=> setUpdatedData({
+              ...updatedData,
+              description:e.target.value
+            })}></textarea>
           </div>
           <div className='options'>
             <div>
               <label htmlFor="category" className='label'>Category</label>
-              <select id='category'>
+              <select id='category' onChange={(e)=> setUpdatedData({
+                ...updatedData,
+                categories:e.target.value
+              })}
+              
+              >
               <option value={""}>Category</option>
                 <option value={"action"} className='option'>Action</option>
                 <option value={"drama"}>Drama</option>
@@ -37,7 +78,10 @@ const MyVideoRight = ({card}) => {
             </div>
             <div>
               <label htmlFor="visibility" className='label'>Visibility</label>
-              <select id='visibility'>
+              <select id='visibility' onChange={(e)=> setUpdatedData({
+                ...updatedData,
+                visibility:e.target.value
+              })}>
               <option value={""}>Visibility</option>
                 <option value={"public"}>Public</option>
                 <option value={"private"}>Private</option>
@@ -52,8 +96,8 @@ const MyVideoRight = ({card}) => {
             </div>
           </div>
           <div className='btn-container'>
-            <button className='my-video-btn'>Delete</button>
-            <button className='my-video-btn btn-purple'>Save</button>
+            <button className='my-video-btn' onClick={()=> deleteMyPost(card._id,token)}>Delete</button>
+            <button className='my-video-btn btn-purple' onClick={()=> updatePost(updatedData)}>Save</button>
           </div>
     </div>
   )

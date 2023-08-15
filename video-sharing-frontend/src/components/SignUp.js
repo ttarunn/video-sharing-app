@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlinePlusCircle } from 'react-icons/ai'
 import axios from 'axios';
+import Offline from './Offline';
+import useOnline from './utils/useOnline';
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -11,12 +13,12 @@ const SignUp = () => {
         profession:"",
         password:"",
         confirmpassword:"",
-        imageURL:""
+        image:""
     });
-
+    const online = useOnline()
     const [imgURL, setImgURL] = useState('');
-    const [status, setStatus] = useState(false);
-    // const [err, setErr] = useState('')
+    const [status, setStatus] = useState(0);
+    
     const navigate = useNavigate()
 
     const { REACT_APP_CLOUDINARY_VIDEO_POST_API, REACT_APP_CLOUD_NAME, REACT_APP_API_SERVER, REACT_APP_CLOUDINARY_IMAGE_POST_API } = process.env;
@@ -53,12 +55,19 @@ const SignUp = () => {
 
       function navigatePage(status){
         if(status === 201){
-            alert("Registered Successfully")
+            // alert("Registered Successfully")
             return navigate('/signin')
         }else{
             alert("Not Registered Try Again")
         }
       }
+
+
+      if(!online){
+        return <Offline/>
+       }
+
+
   return (
     <div className='sign-in-page'>
         <div className='left'>
@@ -70,10 +79,10 @@ const SignUp = () => {
         <div className='right'>
         <form className='center-signup' onSubmit={(e)=> {
             e.preventDefault();
-            
+            console.log(formData)
             handleSubmit(formData);
-            navigatePage(status)
         }}>
+            {status === 0? "Processing...":navigatePage(status)}
             <h1>Register</h1>
             <p>Register to continue access pages</p>
 
@@ -98,7 +107,7 @@ const SignUp = () => {
             <input type='text' placeholder='Profession' className='signup-email' onChange={(e)=> setFormData({
                 ...formData,
                 profession:e.target.value,
-                imageURL:imgURL
+                image:imgURL
             })}
             required/>
             <input type='password' placeholder='Password' className='signup-email' onChange={(e)=> setFormData({

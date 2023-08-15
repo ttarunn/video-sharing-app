@@ -2,6 +2,8 @@ import { createContext, useState } from 'react';
 import './App.css';
 
 import Router from './components/Routes/Router';
+import { Provider } from 'react-redux';
+import store from './components/utils/store';
 
 export const authContext = createContext();
 
@@ -9,9 +11,9 @@ function App() {
   const [login, setLogin] = useState(false)
   return (
     <>
-    <authContext.Provider value={{login, setLogin}}>
+    <Provider store={store}>
       <Router/>
-    </authContext.Provider>
+    </Provider>
     </>
     
   );

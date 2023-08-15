@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ProgressBar from "./ProgressBar";
 import axios from "axios";
 
+
 const Upload = () => {
   const navigate = useNavigate();
   const [videoUrl, setVideoUrl] = useState("");
@@ -17,10 +18,11 @@ const Upload = () => {
     videoURL: "",
     name: "",
     description: "",
-    category: "",
+    categories: "",
     visibility: "",
     other: "other",
-    thumbnail:""
+    thumbnail:"",
+    duration:0
   });
   
   const { REACT_APP_CLOUDINARY_VIDEO_POST_API, REACT_APP_CLOUD_NAME, REACT_APP_API_SERVER, REACT_APP_CLOUDINARY_IMAGE_POST_API } = process.env;
@@ -68,7 +70,7 @@ const Upload = () => {
   
 
   const handleSubmit = async (data) => {
-    console.log(REACT_APP_API_SERVER)
+    
     const result = await fetch(`${REACT_APP_API_SERVER}/api/video/upload`, {
       method:"POST",
       headers: {
@@ -77,28 +79,19 @@ const Upload = () => {
         "Authorization": token
       },
       body:JSON.stringify(data),
-    }).then(res => res.json()).then(res=> console.log(res))
+    }).then(res => {if(res.status === 201) {
+      navigate('/myvideos')}
+      window.location.reload()
+    })
     .catch(err => console.log(err))
-    
-    // const json = await result.json()
-    console.log(result, "in2")
-    // console.log(json)
+
   }
-  function navigatePage(status){
-    if(status === 201){
-        // alert("Registered Successfully")
-        return navigate('/myvideos')
-    }else{
-        alert("Check Credential Once")
-    }
-  }
+  
   return (
     <div id="upload-container">
       <form className="upload" onSubmit={(e)=> {
         e.preventDefault();
-        console.log(formData)
-        console.log(handleSubmit(formData))
-        // navigatePage(status)
+        handleSubmit(formData)
       }}>
         <MdCancel onClick={() => navigate("/myvideos")} className="cancel" />
         <h4>Upload New Video</h4>
@@ -122,7 +115,7 @@ const Upload = () => {
           <input type="file" id="thumbnail" onChange={(e)=> {
             cdnThumbnailUpload(e.target.files[0])
           }} required/>
-          {progressThumb?<ProgressBar progress={progressThumb} />:"Upload Thumbail"}
+          {progressThumb?<ProgressBar progress={progressThumb} />:"Upload Thumbnail"}
         </div>
         </label>
         <input type="text" placeholder="Name" className="upload-name" onChange={(e)=> {
@@ -146,7 +139,7 @@ const Upload = () => {
             <select id="category" onChange={(e)=> {
               setFormData({
                 ...formData,
-                category:e.target.value
+                categories:e.target.value
               })
             }}>
               <option value={""}>Category</option>
@@ -192,6 +185,7 @@ const Upload = () => {
           setFormData({
             ...formData,
             videoURL:videoUrl.data.secure_url,
+            duration:parseInt(videoUrl.data.duration),
             thumbnail:thumbnail.data.secure_url
           })
         }}>Save</button>
