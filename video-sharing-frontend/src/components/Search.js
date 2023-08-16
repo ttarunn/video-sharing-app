@@ -20,12 +20,10 @@ const Search = () => {
 
   useEffect(() => {
     onSearchTest();
-    console.log("filter 1", userPosts[0]);
     const sT = setTimeout(() => {
       const filteredPosts = resultData.filter((video) =>
         video.title.toLowerCase().includes(searchText.toLowerCase())
       );
-      console.log("filter", filteredPosts);
       dispatch(addSearchResultVideos(filteredPosts));
     }, 100);
 

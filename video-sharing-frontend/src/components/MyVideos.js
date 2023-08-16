@@ -10,8 +10,10 @@ import Shimmer from "./Shimmer";
 import NoVideoFound from "./NoVideoFound";
 import Offline from "./Offline";
 import useOnline from "./utils/useOnline";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SearchPage from "./SearchPage";
+import NotLoggedIn from "./NotLoggedIn";
+import { addMyVideos } from "./utils/PostsSlice";
 
 const MyVideos = () => {
   const tL = useSelector((store) => store.posts.textLength);
@@ -22,6 +24,7 @@ const MyVideos = () => {
   const online = useOnline();
   const { id } = useParams();
   const headers = { Authorization: token };
+  const dispatch = useDispatch();
 
   async function getAllMyVideos() {
     const data = await fetch(
@@ -32,6 +35,9 @@ const MyVideos = () => {
 
     const apiData2 = json.videos.reverse();
     setData(apiData2);
+   
+    dispatch(addMyVideos(apiData2))
+    
     setCard(apiData2[0]);
   }
 
@@ -44,9 +50,9 @@ const MyVideos = () => {
   useEffect(() => {
     setToken(localStorage.getItem("token"));
 
-    console.log(token);
     if (token !== "") {
       getAllMyVideos();
+      
     }
     if (id) {
       singlePost(id.split(":")[1]);
@@ -57,13 +63,24 @@ const MyVideos = () => {
   if (!online) {
     return <Offline />;
   }
-  if (token === "" || data.length === 0) {
+  if (data.length === 0 && token !=='') {
     return (
       <>
         <NoVideoFound />
+        {pathname === "/upload" ? (
+        <div>
+          <Upload />
+        </div>
+      ) : (
+        ""
+      )}
       </>
     );
   }
+  if(token===''){
+    return <NotLoggedIn/>
+  }
+  // const data2 = data || JSON.parse(localStorage.getItem('myvideos'))
   return (
     <>
       <Header />
@@ -88,18 +105,22 @@ const MyVideos = () => {
                   );
                 })}
               </div>
-              <div className="my-videos-right">
-                {id !== undefined ? (
+              <div className="my-videos-right">\
+              <MyVideoRight />
+                {/* {id !== undefined ? (
                   postID.length > 0 ? (
-                    <MyVideoRight card={postID[0]} />
+                    <MyVideoRight card1={postID[0]} />
                   ) : (
-                    <Shimmer />
+                    <MyVideoRight card1={card} />
                   )
                 ) : card._id !== undefined ? (
-                  <MyVideoRight card={card} />
+                  ""
                 ) : (
                   <Shimmer />
-                )}
+                )} */}
+                {/* {
+                  id === undefined?<MyVideoRight card1={card} />:<MyVideoRight />
+                } */}
               </div>
             </div>
           )}

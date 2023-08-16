@@ -7,10 +7,7 @@ const NoVideoFound = () => {
     <>
       <Header />
       <div style={{ fontSize: "2rem", color: "White", textAlign: "center" }}>
-        <h2>You are not Logged In!!</h2>
-        <Link to={"/signin"} className="Link">
-          <h4>Click to logIn</h4>
-        </Link>
+        <h2>You havent Upload anything</h2>
       </div>
     </>
   );

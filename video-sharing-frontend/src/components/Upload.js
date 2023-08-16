@@ -90,6 +90,14 @@ const Upload = () => {
       .catch((err) => setStatus(err.status));
   };
 
+
+  function secToMin(sec){
+    let min = parseInt(sec/60)
+    let second = sec%60
+    return (min+"."+second)
+  }
+
+
   return (
     <div id="upload-container">
       <form
@@ -221,7 +229,7 @@ const Upload = () => {
             setFormData({
               ...formData,
               videoURL: videoUrl.data.secure_url,
-              duration: parseInt(videoUrl.data.duration),
+              duration: secToMin(parseInt(videoUrl.data.duration)),
               thumbnail: thumbnail.data.secure_url,
             });
           }}

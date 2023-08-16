@@ -6,7 +6,8 @@ const postsSlice = createSlice({
     initialState: {
         videos: [],
         searchResultVideo : [],
-        textLength : 0
+        textLength : 0,
+        myVideos: []
     },
     reducers: {
         addVideo: (state, action) => {
@@ -18,10 +19,14 @@ const postsSlice = createSlice({
         },
         addTextLength: (state, action) => {
             state.textLength = action.payload
+        },
+        addMyVideos: (state, action) => {
+            state.myVideos = []
+            state.myVideos.push(action.payload)
         }
     }
 });
 
-export const { addVideo, addSearchResultVideos, addTextLength } = postsSlice.actions
+export const { addVideo, addSearchResultVideos, addTextLength, addMyVideos } = postsSlice.actions
 
 export default postsSlice.reducer;

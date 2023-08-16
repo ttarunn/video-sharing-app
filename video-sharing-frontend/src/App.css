@@ -243,12 +243,8 @@
     width: 50%;
     display: flex;
     flex-wrap: wrap;
-    /* border-right: 1px solid white; */
 }
-/* .my-videos-left > .card{
-  margin: 1.2rem;
-  border-radius: 10%;
-} */
+
 .my-videos-right{
   width: 50%;
   position: sticky;
@@ -286,7 +282,6 @@
   opacity: .7;
 }
 .left-info{
-  /* style={{width:"100%", color:"white", display:"flex", justifyContent:"space-between"}} */
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -510,6 +505,56 @@ input[type=text], input[type="password"], input[type="email"], input[type="tel"]
   margin: auto;
   border-radius: 10px;
 }
+/* loader css */
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+}
+
+.loader-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid #FFFFFF;
+  border-top-color: #fc0808;
+  animation: loader-spin 1.5s linear infinite;
+}
+
+.loader-inner::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-size: 100%;
+  animation: loader-animation 2s infinite ease-in-out;
+}
+
+@keyframes loader-animation {
+  0% {
+      transform: rotate(0deg);
+  }
+
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+@keyframes loader-spin {
+  to {
+      transform: rotate(360deg);
+  }
+}
+/* loader css */
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -568,7 +613,6 @@ input[type=text], input[type="password"], input[type="email"], input[type="tel"]
   margin-left: auto;
   margin-right: auto;
   margin-top: 35%;
-  /* width: 40%; */
 }
 .center-signup {
   margin-left: auto;
@@ -607,6 +651,9 @@ input{
   background: #C4B4F8 0% 0% no-repeat padding-box;
   color: #FFFFFF;
   margin-top: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
 }
 .signup-name{
   background-color: transparent;
@@ -649,6 +696,7 @@ input{
   color: #FFFFFF;
   margin-top: 2rem;
   margin-left: 5rem;
+  cursor: pointer;
 }
 .Link{
   text-decoration: none;

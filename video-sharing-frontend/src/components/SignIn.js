@@ -38,7 +38,7 @@ const SignIn = () => {
       localStorage.setItem("token", response.token);
       return navigate("/");
     } else {
-      alert("check");
+      alert("Invalid Credentials");
     }
   }
 

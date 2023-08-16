@@ -1,26 +1,75 @@
 import React, { useEffect, useState } from "react";
-import Shimmer from "./Shimmer";
 import { deletePost } from "./utils/helper";
 import { useNavigate, useParams } from "react-router";
 import { useSelector } from "react-redux";
-const MyVideoRight = ({ card }) => {
+
+
+const MyVideoRight = () => {
+
+  const [card, setCard] = useState({}) 
+  const [statusUp, setStatusUp] = useState(0);
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const [updatedData, setUpdatedData] = useState({
+
+  const myVideos = useSelector(store => store.posts.myVideos);
+
+  let [updatedData, setUpdatedData] = useState({
     categories: card.categories,
     visibility: "Public",
     description: card.description,
   });
-
-  const navigate = useNavigate();
-  const userPosts = useSelector((store) => store.posts.videos);
   const { id } = useParams();
 
-  const uservideos = userPosts[0] || JSON.parse(localStorage.getItem("videos"));
+  async function getSinglePost(id) {
+    console.log(id)
+    const data = await fetch(`${process.env.REACT_APP_API_SERVER}/api/video/getPost/${id}`, {
+      headers:{
+        "Authorization": token
+      }
+    })
 
-  const updatePost = async (data) => {
+    const json = await data.json();
+    console.log(data.status)
+    setCard(json?.videos[0])
+    setUpdatedData({
+      ...updatedData,
+      categories: json?.videos[0].categories,
+      visibility: "Public",
+      description: json?.videos[0].description,
+    })
+
+  };
+
+  useEffect(() => {
+    if (id) {
+      const postID = id.split(":")[1];
+      getSinglePost(postID)
+    }else{
+      setCard(myVideos[0])
+      setUpdatedData({
+        ...updatedData,
+        categories: myVideos[0].categories,
+        visibility: "Public",
+        description: myVideos[0].description,
+      })
+    }
+    return ()=> {
+      // setUpdatedData({
+      //   ...updatedData,
+      //   categories: card.categories,
+      //   visibility: "Public",
+      //   description: card.description,
+      // })
+    }
+  }, [id, statusUp]);
+    
+  
+  
+  const navigate = useNavigate();  
+
+  const updatePost = async (data, id) => {
     if (data.categories !== "") {
       await fetch(
-        `${process.env.REACT_APP_API_SERVER}/api/video/updatePost/${card._id}`,
+        `${process.env.REACT_APP_API_SERVER}/api/video/updatePost/${id}`,
         {
           method: "PUT",
           headers: {
@@ -31,9 +80,7 @@ const MyVideoRight = ({ card }) => {
           body: JSON.stringify(data),
         }
       )
-        .then((result) => {
-          if (result.status === 201) window.location.reload();
-        })
+        .then(res => {if (res.status === 201) alert("Post Updated Success"); setStatusUp(201)})
         .catch((err) => console.log(err));
     } else {
       alert("please select categories");
@@ -47,19 +94,10 @@ const MyVideoRight = ({ card }) => {
       window.location.reload();
     }
   }
-  useEffect(() => {
-    if (id) {
-      const postID = id.split(":")[1];
-      const data = uservideos.filter((video) => video._id === postID);
-      console.log(data[0]);
-    }
-  }, [id]);
-  if (card.length === 0) {
-    return <Shimmer />;
-  }
-
+ 
+ 
   return (
-    <div>
+    <>{card.description === undefined? <p style={{textAlign:"center", color:"white"}}>Select One Video</p>:<div>
       <img src={card.thumbnail} alt="banner" className="my-video-banner" />
       <div className="my-videos-details">
         <h2 className="my-videos-title">{card.title}</h2>
@@ -73,13 +111,15 @@ const MyVideoRight = ({ card }) => {
         <p style={{ color: "white" }}>Description</p>
         <textarea
           style={{ color: "white" }}
-          value={updatedData.description}
-          onChange={(e) =>
+          onChange={(e) =>{
             setUpdatedData({
               ...updatedData,
               description: e.target.value,
-            })
+            });
+            
           }
+          }
+          value={updatedData.description}
         ></textarea>
       </div>
       <div className="options">
@@ -141,13 +181,16 @@ const MyVideoRight = ({ card }) => {
         </button>
         <button
           className="my-video-btn btn-purple"
-          onClick={() => updatePost(updatedData)}
+          onClick={() => updatePost(updatedData, card._id)}
         >
           Save
         </button>
       </div>
     </div>
+}</>
   );
-};
+}
+
+;
 
 export default MyVideoRight;

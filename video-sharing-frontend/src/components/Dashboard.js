@@ -33,7 +33,7 @@ const Dashboard = () => {
             Upload
           </Link>{" "}
           |{" "}
-          <Link to={"/"} className="Link" onClick={() => clearToken()}>
+          <Link to={"/"} className="Link" style={{color:"red"}} onClick={() => clearToken()}>
             Sign Out
           </Link>
         </div>
