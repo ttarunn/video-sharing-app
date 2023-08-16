@@ -26,6 +26,7 @@ const SignIn = () => {
       body: JSON.stringify(formData),
     });
     const json = await post.json();
+    navigatePage(post.status, json.token)
     setResponse({
       ...response,
       status: post.status,
@@ -33,10 +34,10 @@ const SignIn = () => {
     });
   };
 
-  function navigatePage(response) {
-    if (response.status === 200) {
-      localStorage.setItem("token", response.token);
-      return navigate("/");
+  function navigatePage(response, token) {
+    if (response === 200) {
+      localStorage.setItem("token", token);
+      navigate("/");
     } else {
       alert("Invalid Credentials");
     }
@@ -70,7 +71,7 @@ const SignIn = () => {
               handleSubmit(formdata);
             }}
           >
-            {response.status === -1 ? "" : navigatePage(response)}
+            
             <h1>Sign In</h1>
             <p>Sign in to access the videos</p>
             <input

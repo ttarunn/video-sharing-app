@@ -21,7 +21,7 @@ const MyVideoRight = () => {
 
   async function getSinglePost(id) {
     console.log(id)
-    const data = await fetch(`${process.env.REACT_APP_API_SERVER}/api/video/getPost/${id}`, {
+    const data = await fetch(`${process.env.REACT_APP_API_SERVER}/api/video/myvideo/${id}`, {
       headers:{
         "Authorization": token
       }
@@ -52,14 +52,6 @@ const MyVideoRight = () => {
         description: myVideos[0].description,
       })
     }
-    return ()=> {
-      // setUpdatedData({
-      //   ...updatedData,
-      //   categories: card.categories,
-      //   visibility: "Public",
-      //   description: card.description,
-      // })
-    }
   }, [id, statusUp]);
     
   
@@ -75,7 +67,7 @@ const MyVideoRight = () => {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
-            Authorization: token,
+            "Authorization": token,
           },
           body: JSON.stringify(data),
         }
@@ -137,12 +129,12 @@ const MyVideoRight = () => {
             }
           >
             <option value={""}>Category</option>
-            <option value={"action"} className="option">
+            <option value={"Action"} className="option">
               Action
             </option>
-            <option value={"drama"}>Drama</option>
-            <option value={"romance"}>Romance</option>
-            <option value={"comedy"}>Comedy</option>
+            <option value={"Drama"}>Drama</option>
+            <option value={"Romance"}>Romance</option>
+            <option value={"Comedy"}>Comedy</option>
           </select>
         </div>
         <div>
@@ -159,8 +151,8 @@ const MyVideoRight = () => {
             }
           >
             <option value={""}>Visibility</option>
-            <option value={"public"}>Public</option>
-            <option value={"private"}>Private</option>
+            <option value={"Public"}>Public</option>
+            <option value={"Private"}>Private</option>
           </select>
         </div>
         <div>

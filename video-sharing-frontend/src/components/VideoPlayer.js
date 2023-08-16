@@ -8,16 +8,19 @@ import useOnline from "./utils/useOnline";
 import Offline from "./Offline";
 import { useDispatch, useSelector } from "react-redux";
 import SearchPage from "./SearchPage";
-import { addVideo } from "./utils/PostsSlice";
+import { addMyVideos, addVideo } from "./utils/PostsSlice";
 
 const VideoPlayer = () => {
   const tL = useSelector((store) => store.posts.textLength);
+  
   const { id } = useParams();
   const postId = id.split(":")[1];
   const [data, setData] = useState([]);
+  const [myData, setMyData] = useState([]);
   const online = useOnline();
   const dispatch = useDispatch();
-  const video = data.filter((video) => video._id === postId);
+  let video = data.filter((video) => video._id === postId);
+  const token = localStorage.getItem('token')
 
   async function getAllVideoPosts() {
     const data = await getAllPosts();
@@ -26,6 +29,23 @@ const VideoPlayer = () => {
     dispatch(addVideo(rev));
   }
 
+  const headers = { "Authorization": token };
+
+  async function getAllMyVideos() {
+    const data = await fetch(
+      `${process.env.REACT_APP_API_SERVER}/api/video/myvideos`,
+      { headers }
+    );
+    const json = await data.json();
+    
+    const apiData2 = json.videos.reverse();
+    setMyData(apiData2)
+   
+  }
+
+  if(video.length === 0){
+    video = myData.filter((video) => video._id === postId);
+  }
   function videoPlay() {
     return (
       <video width="900px" height="400" controls autoPlay preload="auto" loop>
@@ -34,8 +54,13 @@ const VideoPlayer = () => {
       </video>
     );
   }
+  
   useEffect(() => {
     getAllVideoPosts();
+    if(token !== '' && video.length === 0){
+      getAllMyVideos()
+    }
+    
   }, [id]);
 
   if (!online) {
@@ -49,12 +74,12 @@ const VideoPlayer = () => {
         <SearchPage />
       ) : (
         <>
-          {data.length === 0 ? (
+          {(data.length === 0 || video.length === 0) ? (
             <Shimmer />
           ) : (
             <div className="video-player">
               <div className="player">
-                {/* <img src='https://wallpapercave.com/wp/wp10159564.jpg' className='video-img'/> */}
+                
                 {videoPlay()}
                 <div
                   style={{

@@ -23,7 +23,7 @@ const MyVideos = () => {
   const [card, setCard] = useState([]);
   const online = useOnline();
   const { id } = useParams();
-  const headers = { Authorization: token };
+  const headers = { "Authorization": token };
   const dispatch = useDispatch();
 
   async function getAllMyVideos() {
@@ -35,6 +35,7 @@ const MyVideos = () => {
 
     const apiData2 = json.videos.reverse();
     setData(apiData2);
+    
    
     dispatch(addMyVideos(apiData2))
     

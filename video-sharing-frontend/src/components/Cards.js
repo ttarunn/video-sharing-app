@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Cards = ({ card }) => {
+
   const { _id, title, userImg, thumbnail, views, date, duration } = card;
   const viewUpdate = async () => {
     await fetch(
