@@ -68,7 +68,7 @@ function LandingPage() {
           </div>
           <div className="card-div">
             {!viewMore
-              ? new Array(2).fill(0).map((item, idx) => {
+              ? new Array(4).fill(0).map((item, idx) => {
                   return (
                     <Link
                       to={`/video/:${postData[idx]._id}`}
