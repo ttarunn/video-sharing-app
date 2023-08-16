@@ -5,6 +5,7 @@ const {createNewPost,deleteMyPost, getallMyPost, updateMyPost} = require('../rou
 
 router.post("/upload", createNewPost)
 router.get("/myvideos",getallMyPost);
+router.get("/myvideo/:id",getallMyPost);
 router.put("/updatePost/:id", updateMyPost)
 router.delete('/delete/:id', deleteMyPost)
 
