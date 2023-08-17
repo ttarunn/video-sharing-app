@@ -8,6 +8,7 @@ import useOnline from "./utils/useOnline";
 import Offline from "./Offline";
 import { useDispatch, useSelector } from "react-redux";
 import SearchPage from "./SearchPage";
+import Player from "./Player";
 import { addMyVideos, addVideo } from "./utils/PostsSlice";
 
 const VideoPlayer = () => {
@@ -46,14 +47,7 @@ const VideoPlayer = () => {
   if(video.length === 0){
     video = myData.filter((video) => video._id === postId);
   }
-  function videoPlay() {
-    return (
-      <video width="900px" height="400" controls autoPlay preload="auto" loop>
-        <source src={video[0].videoURL} type="video/mp4" />
-        This browser doesn't support video tag.
-      </video>
-    );
-  }
+  
   
   useEffect(() => {
     getAllVideoPosts();
@@ -80,7 +74,7 @@ const VideoPlayer = () => {
             <div className="video-player">
               <div className="player">
                 
-                {videoPlay()}
+                <Player videoURL={video[0].videoURL}/>
                 <div
                   style={{
                     display: "flex",
