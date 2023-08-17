@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { viewUpdate } from "./utils/helper";
-const Cards = ({ card }) => {
+
+
+const CardsLP = ({ card }) => {
 
   const { _id, title, userImg, thumbnail, views, date, duration } = card;
 
@@ -11,13 +11,7 @@ const Cards = ({ card }) => {
       <div className="play-div"></div>
 
       <div className="play-button">
-        <Link
-          to={`/video/:${_id}`}
-          className="Link"
-          onClick={() => viewUpdate(_id)}
-        >
           &#9654;
-        </Link>
       </div>
 
       <div className="card-title">{title}</div>
@@ -29,4 +23,4 @@ const Cards = ({ card }) => {
   );
 };
 
-export default Cards;
+export default CardsLP;

@@ -4,9 +4,7 @@ import Cards from "./Cards";
 import { Link, useLocation, useParams } from "react-router-dom";
 import MyVideoRight from "./MyVideoRight";
 import Upload from "./Upload";
-
 import Shimmer from "./Shimmer";
-
 import NoVideoFound from "./NoVideoFound";
 import Offline from "./Offline";
 import useOnline from "./utils/useOnline";
@@ -108,20 +106,6 @@ const MyVideos = () => {
               </div>
               <div className="my-videos-right">\
               <MyVideoRight />
-                {/* {id !== undefined ? (
-                  postID.length > 0 ? (
-                    <MyVideoRight card1={postID[0]} />
-                  ) : (
-                    <MyVideoRight card1={card} />
-                  )
-                ) : card._id !== undefined ? (
-                  ""
-                ) : (
-                  <Shimmer />
-                )} */}
-                {/* {
-                  id === undefined?<MyVideoRight card1={card} />:<MyVideoRight />
-                } */}
               </div>
             </div>
           )}

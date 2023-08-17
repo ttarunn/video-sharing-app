@@ -4,13 +4,14 @@ import Banner from "./Banner";
 import StickyBanner from "./StickyBanner";
 import Header from "./Header";
 import SearchPage from "./SearchPage";
-import { getAllPosts } from "./utils/helper";
+import { getAllPosts, viewUpdate } from "./utils/helper";
 import Shimmer from "./Shimmer";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addVideo } from "./utils/PostsSlice";
 import useOnline from "./utils/useOnline";
 import Offline from "./Offline";
+import CardsLP from "./CardLP";
 export const searchContext = createContext({
   search: true,
   setSearch: () => {},
@@ -52,9 +53,9 @@ function LandingPage() {
       ) : (
         <>
           {!viewMore ? (
-            <Banner postData={postData[0]} />
+            <Link to={`/video/:${postData[0]._id}`} onClick={()=> viewUpdate(postData[0]._id)}><Banner postData={postData[0]} /></Link>
           ) : (
-            <StickyBanner postData={postData[0]} />
+            <Link to={`/video/:${postData[0]._id}`} onClick={()=> viewUpdate(postData[0]._id)}><StickyBanner postData={postData[0]} /></Link>
           )}
 
           <div className="action">
@@ -73,15 +74,20 @@ function LandingPage() {
                     <Link
                       to={`/video/:${postData[idx]._id}`}
                       key={postData[idx]._id}
+                      onClick={()=> viewUpdate(postData[idx]._id)}
                     >
-                      <Cards card={postData[idx]} />
+                      <CardsLP card={postData[idx]} />
                     </Link>
                   );
                 })
               : postData.map((card) => {
                   return (
-                    <Link to={`/video/:${card._id}`}>
-                      <Cards card={card} />
+                    <Link 
+                    to={`/video/:${card._id}`}
+                    key={card._id}
+                    onClick={()=> viewUpdate(card._id)}
+                    >
+                      <CardsLP card={card} />
                     </Link>
                   );
                 })}

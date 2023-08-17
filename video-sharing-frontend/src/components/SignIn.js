@@ -50,19 +50,19 @@ const SignIn = () => {
   return (
     <>
       <div className="sign-in-page">
-        <div className="left">
+        <div className="auth-left">
           <img
             src="https://wallpapers.com/images/featured/guardians-of-the-galaxy-5paov6a8eku13ugb.jpg"
             alt="sign-in"
             className="left-img"
           />
-          <h1 className="sign-title">FlickFlow</h1>
+          <Link to={'/'}><h1 className="sign-title">FlickFlow</h1></Link>
           <p className="sign-description">Enjoy Multiple Videos at one Place</p>
           <Link to={"/register"} className="signin-link">
             Register
           </Link>
         </div>
-        <div className="right">
+        <div className="auth-right">
           <form
             className="center"
             onSubmit={(e) => {

@@ -33,7 +33,7 @@ const Search = () => {
   }, [searchText]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div className="search-container">
       <input
         type="text"
         placeholder="search"

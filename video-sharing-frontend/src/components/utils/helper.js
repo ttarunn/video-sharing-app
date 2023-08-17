@@ -26,3 +26,13 @@ export const deletePost = async (id, token) => {
   });
   return data.status;
 };
+
+
+export const viewUpdate = async (_id) => {
+  await fetch(
+    `${REACT_APP_API_SERVER}/api/video/updateViews/${_id}`,
+    {
+      method: "PUT",
+    }
+  ).then((res) => window.location.reload());
+};

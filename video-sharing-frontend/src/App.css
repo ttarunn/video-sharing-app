@@ -39,6 +39,9 @@
   margin: 1.5rem 1.5rem 1rem 0;
   color: #FFFFFF;
 }
+.log-reg{
+  display: none;
+}
 .title{
   /* width: 8rem; */
   margin: 1.5rem -2rem 1rem .9rem;
@@ -120,7 +123,7 @@
 .banner-title{
   display: flex;
   flex-wrap: wrap;
-  width: 30rem;
+  width: 100%;
   font-size: 2em;
   font-weight: 700;
 }
@@ -505,6 +508,11 @@ input[type=text], input[type="password"], input[type="email"], input[type="tel"]
   margin: auto;
   border-radius: 10px;
 }
+.search-container{
+  /* style={{ display: "flex", flexDirection: "column" }} */
+  display: flex;
+  flex-direction: column;
+}
 /* loader css */
 .loader {
   position: fixed;
@@ -579,7 +587,7 @@ input[type=text], input[type="password"], input[type="email"], input[type="tel"]
   width: 100%;
   color: white;
 }
-.left{
+.auth-left{
   width: 60%;
   position: relative;
 }
@@ -604,7 +612,7 @@ input[type=text], input[type="password"], input[type="email"], input[type="tel"]
   font-size: 2rem;
   width: 20rem;
 }
-.right{
+.auth-right{
   width: 40%;
   height: 38rem;
   text-align: center;
@@ -718,5 +726,36 @@ input[type=file]{
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+
+/* media screen css */
+
+@media screen and (max-width: 475px){
+  .search{
+    width: 10rem;
+    height: 2rem;
+  }
+  .title{
+    /* width: 8rem; */
+    margin: 1.5rem 0rem 0rem .9rem;
+    font-size: 1rem;
+  }
+  .login-signup{
+    display: none;
+  }
+  .log-reg{
+    display: unset;
+    font-size: 2rem;
+    margin: 1rem 1.5rem 1rem 0
+  }
+  .dashboard-container{
+    background: #000000;
+    width: 4rem;
+    display: flex;
+    flex-direction: row;
+    font-size: 1rem;
+    margin-right: -1rem;
   }
 }
