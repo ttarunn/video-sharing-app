@@ -35,12 +35,12 @@
   padding: 1rem;
 }
 .login-signup{
-  
   margin: 1.5rem 1.5rem 1rem 0;
   color: #FFFFFF;
 }
 .log-reg{
   display: none;
+  position: relative;
 }
 .title{
   /* width: 8rem; */
@@ -614,7 +614,6 @@ input[type=text], input[type="password"], input[type="email"], input[type="tel"]
 }
 .auth-right{
   width: 40%;
-  height: 38rem;
   text-align: center;
 }
 .center {
@@ -691,7 +690,6 @@ input{
   top: 32rem;
   left: 3rem;
   font-size: 1rem;
-  width: 20rem;
   text-decoration: none;
 }
 .signup-btn{
@@ -748,14 +746,63 @@ input[type=file]{
   .log-reg{
     display: unset;
     font-size: 2rem;
-    margin: 1rem 1.5rem 1rem 0
+    margin: 1rem 1.5rem 1rem 0;
+    
   }
   .dashboard-container{
+    position: absolute;
     background: #000000;
-    width: 4rem;
+    width: 6rem;
     display: flex;
     flex-direction: row;
+    font-size: 2rem;
+    left: -3.4rem;
+  }
+  .text{
+    position: absolute;
+  }
+  .sign-in-page{
+   flex-direction: column;
+   position: relative;
+  }
+  .auth-left{
+    width: 100%;
+    position: absolute;
+    
+  }
+  .sign-title{
+    top: 0rem;
+    left: 25%;
+    font-size: 3rem;
+  }
+  .sign-description{
+    top: 4.4rem;
+    left: 4rem;
+    text-align: center;
+    font-size: 1.3rem;
+    width: 16rem;
+  }
+  .auth-right{
+    width: 100%;
+    position: absolute;
+    top: 3rem;
+  }
+  .signin-link{
+    top: 34rem;
+    left: 10.5rem;
     font-size: 1rem;
-    margin-right: -1rem;
+    text-decoration: none;
+  }
+  .media-auth-right{
+    top: 9rem;
+  }
+  .para{
+    margin-top: -.8rem;
+  }
+  .signup-btn{
+    margin-left: auto;
+  }
+  .signin-link-signup{
+    top: 46.8rem;
   }
 }

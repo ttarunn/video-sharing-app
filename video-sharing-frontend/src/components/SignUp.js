@@ -71,15 +71,15 @@ const SignUp = () => {
         <img
           src="https://wallpapers.com/images/featured/guardians-of-the-galaxy-5paov6a8eku13ugb.jpg"
           alt="sign-in"
-          className="left-img"
+          className="left-img signup"
         />
         <Link to={'/'}><h1 className="sign-title">FlickFlow</h1></Link>
         <p className="sign-description">Enjoy Multiple Videos at one Place</p>
-        <Link to={"/signin"} className="signin-link">
+        <Link to={"/signin"} className="signin-link signin-link-signup">
           Sign In
         </Link>
       </div>
-      <div className="auth-right">
+      <div className="auth-right media-auth-right">
         <form
           className="center-signup"
           onSubmit={(e) => {
@@ -90,7 +90,7 @@ const SignUp = () => {
         >
           {status === 0 ? "" : navigatePage(status)}
           <h1>Register</h1>
-          <p>Register to continue access pages</p>
+          <p className="para">Register to continue access pages</p>
 
           <label htmlFor="files" className="signup-img">
             {imgURL === "" ? (
