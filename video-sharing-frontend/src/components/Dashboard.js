@@ -14,7 +14,7 @@ const Dashboard = () => {
   return (
     <div>
       {!token ? (
-        <div>
+        <div className="text">
           <Link to={"/signin"} className="Link">
             Login
           </Link>{" "}
