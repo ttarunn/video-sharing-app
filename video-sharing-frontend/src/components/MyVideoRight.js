@@ -89,7 +89,7 @@ const MyVideoRight = () => {
  
  
   return (
-    <>{card.description === undefined? <p style={{textAlign:"center", color:"white"}}>Select One Video</p>:<div>
+    <>{card.description === undefined? <p style={{textAlign:"center", color:"white"}}>Select One Video</p>:<>
       <img src={card.thumbnail} alt="banner" className="my-video-banner" />
       <div className="my-videos-details">
         <h2 className="my-videos-title">{card.title}</h2>
@@ -178,7 +178,7 @@ const MyVideoRight = () => {
           Save
         </button>
       </div>
-    </div>
+    </>
 }</>
   );
 }
