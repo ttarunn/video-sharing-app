@@ -603,6 +603,7 @@ input[type=text], input[type="password"], input[type="email"], input[type="tel"]
   top: 12rem;
   left: 3rem;
   font-size: 4rem;
+  z-index: 1;
 }
 .sign-description{
   position: absolute;
@@ -730,7 +731,7 @@ input[type=file]{
 
 /* media screen css */
 
-@media screen and (max-width: 475px){
+@media screen and (max-width: 500px){
   .search{
     width: 10rem;
     height: 2rem;
@@ -757,6 +758,7 @@ input[type=file]{
     flex-direction: row;
     font-size: 2rem;
     left: -3.4rem;
+    z-index: 1;
   }
   .text{
     position: absolute;
@@ -789,7 +791,7 @@ input[type=file]{
   }
   .signin-link{
     top: 34rem;
-    left: 10.5rem;
+    left: 9.8rem;
     font-size: 1rem;
     text-decoration: none;
   }
@@ -804,5 +806,19 @@ input[type=file]{
   }
   .signin-link-signup{
     top: 46.8rem;
+  }
+  .card{
+    width: 19rem;
+    margin: 0 0 2rem 1.5rem;
+  }
+  .play-div{
+    left: 17rem;
+  }
+  .play-button{
+    left: 17.4rem;
+    font-size: 1rem;
+  }
+  .card-pub-img{
+    left: 16rem;
   }
 }
