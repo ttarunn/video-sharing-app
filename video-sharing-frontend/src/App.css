@@ -938,6 +938,8 @@ input[type=file]{
   }
   .card-div{
     width: 92%;
+    margin-left: 0rem;
+    margin-top: 4rem;
   }
   .sticky-banner-details{
     left: 1rem;
@@ -951,13 +953,17 @@ input[type=file]{
   }
   .sticky-pub-img{
     top: 1rem;
-    left: 20rem;
+    left: 18rem;
   }
   .sticky-pub-name{
-    left: 19.8rem;
+    left: 16.5rem;
   }
   .header {
     height: 4rem;
     width: 100%;
+  }
+  .banner-details{
+    left: 2rem;
+    width: 90%;
   }
 }
