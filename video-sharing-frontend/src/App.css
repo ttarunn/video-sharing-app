@@ -240,9 +240,10 @@
 .my-videos-container{
   display: flex;
   width: 100%;
+  
 }
 .my-videos-left{
-    align-self: flex-start;
+    align-self: flex-start; 
     width: 50%;
     display: flex;
     flex-wrap: wrap;
@@ -403,7 +404,6 @@ h4{
   background: #4B4B5F 0% 0% no-repeat padding-box;
   margin-top: 1rem;
   text-align: center;
-  
 }
 
 .browse-file > p {
@@ -450,7 +450,6 @@ textarea:focus{
   width: 90%;
 }
 .thumbnail{
-  /* style={{border:"1px solid white", height:"2rem"} */
   width: 50%;
   height: 2rem;
   margin-top: .5rem;
@@ -487,6 +486,7 @@ input[type=text], input[type="password"], input[type="email"], input[type="tel"]
   width: 100%;
   color: #FFFFFF;
   display: flex;
+  z-index: 0;
 }
 .player{
   width: 75%;
@@ -495,6 +495,34 @@ input[type=text], input[type="password"], input[type="email"], input[type="tel"]
   top: 0rem;
   display: inline;
   padding: 1rem;
+  background-color: #000000;
+}
+.player-cont{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  background-color: #000000;
+}
+.player-details{
+  display: flex;
+  width: 18rem;
+  justify-content: space-between;
+}
+.player-title{
+  font-size: 1.5rem;
+  margin-left: 4rem;
+  margin-top: -2.5rem;
+}
+.player-add{
+  display: flex;
+  width: 15rem;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+.player-compo{
+  width: 900px;
+  height: 400px;
+  margin: 0;
 }
 .suggestion{
   width: 25%;
@@ -753,15 +781,20 @@ input[type=file]{
   .dashboard-container{
     position: absolute;
     background: #000000;
-    width: 6rem;
+    width: 8rem;
     display: flex;
     flex-direction: row;
     font-size: 2rem;
-    left: -3.4rem;
-    z-index: 1;
+    left: -4.6rem;
+    z-index: 2;
+    background-color: #000000;
   }
   .text{
     position: absolute;
+    background-color: #000000;
+    padding: .2rem;
+    border-radius: 10px;
+    width: 100%;
   }
   .sign-in-page{
    flex-direction: column;
@@ -820,5 +853,83 @@ input[type=file]{
   }
   .card-pub-img{
     left: 16rem;
+  }
+  .video-player{
+    flex-direction: column;
+    background-color: #000000;
+  }
+  .player{
+    width: 100%;
+    padding: 1rem;
+    z-index: 1;
+    border: 1px solid black;
+  }
+  .player-compo{
+    width: 100%;
+    height: auto;
+  }
+  .player-details{
+    width: 100%;
+  }
+  .player-title{
+    margin-left: 3.6rem;
+    margin-top: -2.8rem;
+  }
+  .player-add{
+    display: flex;
+    width: 13rem;
+    justify-content: space-between;
+    margin-top: 1.8rem;
+    font-size: .8rem;
+  }
+  .suggestion{
+    width: 100%;
+    display: inline flex;
+    flex-wrap: wrap;
+    padding: 1rem;
+  }
+  .my-videos-container{
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+  .my-videos-left{
+    align-self: flex-end;
+    width: 100%;
+  } 
+  .my-videos-right{
+    align-self: flex-start;
+    width: 100%;    
+    background-color: #000000;
+  }
+  .my-video-banner{
+    height: 12rem;
+  }
+  .my-videos-details{
+    font-size: .8rem;
+  }
+  .btn-container{
+    padding: .8rem 0 1rem 0;
+  }
+  .my-video-btn{
+    width: 8rem;
+    height: 2rem;
+  }
+  #upload-container{
+    width: 100%;
+    height: 35rem;
+    top: 5rem;
+    z-index: 3;
+    align-items: center;
+  }
+  .upload{
+    width: 75%;
+  }
+  .thumbnail{
+    width: 100%;
+    margin-top: 1rem;
+  }
+  .cntr{
+    left: -1rem;
+    position: absolute;
   }
 }

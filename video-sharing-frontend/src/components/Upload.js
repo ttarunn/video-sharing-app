@@ -224,7 +224,7 @@ const Upload = () => {
           </div>
         </div>
         <button
-          className="my-video-btn btn-purple"
+          className="cntr my-video-btn btn-purple"
           onClick={() => {
             setFormData({
               ...formData,

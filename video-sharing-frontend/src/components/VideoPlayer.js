@@ -13,7 +13,7 @@ import { addMyVideos, addVideo } from "./utils/PostsSlice";
 
 const VideoPlayer = () => {
   const tL = useSelector((store) => store.posts.textLength);
-  
+
   const { id } = useParams();
   const postId = id.split(":")[1];
   const [data, setData] = useState([]);
@@ -21,7 +21,7 @@ const VideoPlayer = () => {
   const online = useOnline();
   const dispatch = useDispatch();
   let video = data.filter((video) => video._id === postId);
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
 
   async function getAllVideoPosts() {
     const data = await getAllPosts();
@@ -30,7 +30,7 @@ const VideoPlayer = () => {
     dispatch(addVideo(rev));
   }
 
-  const headers = { "Authorization": token };
+  const headers = { Authorization: token };
 
   async function getAllMyVideos() {
     const data = await fetch(
@@ -38,23 +38,20 @@ const VideoPlayer = () => {
       { headers }
     );
     const json = await data.json();
-    
+
     const apiData2 = json.videos.reverse();
-    setMyData(apiData2)
-   
+    setMyData(apiData2);
   }
 
-  if(video.length === 0){
+  if (video.length === 0) {
     video = myData.filter((video) => video._id === postId);
   }
-  
-  
+
   useEffect(() => {
     getAllVideoPosts();
-    if(token !== '' && video.length === 0){
-      getAllMyVideos()
+    if (token !== "" && video.length === 0) {
+      getAllMyVideos();
     }
-    
   }, [id]);
 
   if (!online) {
@@ -68,38 +65,22 @@ const VideoPlayer = () => {
         <SearchPage />
       ) : (
         <>
-          {(data.length === 0 || video.length === 0) ? (
+          {data.length === 0 || video.length === 0 ? (
             <Shimmer />
           ) : (
             <div className="video-player">
               <div className="player">
-                
-                <Player videoURL={video[0].videoURL}/>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      width: "18rem",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <img src={video[0].userImg} className="player-pub-img" alt="player-pub-img"/>
-                    <p style={{ fontSize: "1.5rem" }}>{video[0].title}</p>
+                <Player videoURL={video[0].videoURL} />
+                <div className="player-cont">
+                  <div className="palyer-details">
+                    <img
+                      src={video[0].userImg}
+                      className="player-pub-img"
+                      alt="player-pub-img"
+                    />
+                    <p className="player-title">{video[0].title}</p>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      width: "15rem",
-                      justifyContent: "space-between",
-                      marginTop: "1.5rem",
-                    }}
-                  >
+                  <div className="player-add">
                     <div>{video[0].date}</div>
                     <div>{video[0].duration} min</div>
                     <div>{video[0].views} Views</div>

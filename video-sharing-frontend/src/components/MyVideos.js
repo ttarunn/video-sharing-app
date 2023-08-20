@@ -93,7 +93,7 @@ const MyVideos = () => {
             <div className="my-videos-container">
               <div className="my-videos-left">
                 <div className="left-info">
-                  <p>Recent</p>
+                  <p style={{ marginLeft: "1rem" }}>Recent</p>
                   <p style={{ marginRight: "3rem" }}>My Videos</p>
                 </div>
                 {data.map((card) => {
