@@ -161,6 +161,7 @@ const Upload = () => {
               description: e.target.value,
             });
           }}
+          maxLength={250}
           required
         />
 
