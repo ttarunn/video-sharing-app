@@ -39,12 +39,12 @@ const VideoPlayer = () => {
     );
     const json = await data.json();
 
-    const apiData2 = json.videos.reverse();
+    const apiData2 = json?.videos?.reverse();
     setMyData(apiData2);
   }
 
   if (video.length === 0) {
-    video = myData.filter((video) => video._id === postId);
+    video = myData?.filter((video) => video._id === postId);
   }
 
   useEffect(() => {

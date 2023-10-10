@@ -1,5 +1,4 @@
 import React, { createContext, useEffect, useState } from "react";
-import Cards from "./Cards";
 import Banner from "./Banner";
 import StickyBanner from "./StickyBanner";
 import Header from "./Header";
@@ -41,7 +40,7 @@ function LandingPage() {
     return <Offline />;
   }
   if (postData.length === 0) {
-    return <Shimmer />;
+    return <Shimmer message={'Wait Api will take 4 to 5 minutes to fetch data from the server'}/>;
   }
   return (
     <>

@@ -8,7 +8,7 @@ const MyVideoRight = () => {
 
   const [card, setCard] = useState({}) 
   const [statusUp, setStatusUp] = useState(0);
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token] = useState(localStorage.getItem("token"));
 
   const myVideos = useSelector(store => store.posts.myVideos);
 

@@ -3,7 +3,7 @@ import React from "react";
 
 const CardsLP = ({ card }) => {
 
-  const { _id, title, userImg, thumbnail, views, date, duration } = card;
+  const { title, userImg, thumbnail, views, date, duration } = card;
 
   return (
     <div className="card">

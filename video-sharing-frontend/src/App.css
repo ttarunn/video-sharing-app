@@ -138,6 +138,10 @@
   display: inline;
   height: 2rem;
 }
+.api-msg{
+  color: white;
+  text-align: center;
+}
 .pub-name{
   margin-left: 3rem;
   margin-top: -1.8rem;
